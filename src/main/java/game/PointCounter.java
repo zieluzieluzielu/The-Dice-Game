@@ -2,120 +2,118 @@ package game;
 
 public class PointCounter {
 
-
-
     void rollTheDicePointCounter(User user) {
 
         //bardziej rozbudowany if - do populacji w pozostałych poniżej
-        if (userPossibilities.get("acesPoints")) {
+        if (user.userPossibilities.get("acesPoints")) {
             //wyświetlanie wyliczonej liczby punktów w odpowiednim polu w tabeli:
-            user.count(dicesList,1);
+            user.count(user.dicesList,1);
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
-            userResult.replace("acesPoints", user.count(dicesList,1));
-            userPossibilities.replace("acesPoints", false);
-            userTurn = false;
+            user.userResult.replace("acesPoints", user.count(user.dicesList,1));
+            user.userPossibilities.replace("acesPoints", false);
+            user.userTurn = false;
         }
 
 
-        if (userPossibilities.get("twosPoints")) {
+        if (user.userPossibilities.get("twosPoints")) {
 //..
-            userResult.replace("twosPoints", user.count(dicesList,2));
-            userPossibilities.replace("twosPoints", false);
-            userTurn = false;
+            user.userResult.replace("twosPoints", user.count(user.dicesList,2));
+            user.userPossibilities.replace("twosPoints", false);
+            user.userTurn = false;
         }
 
 
-        if (userPossibilities.get("threesPoints")) {
+        if (user.userPossibilities.get("threesPoints")) {
 //..
-            userResult.replace("threesPoints", user.count(dicesList,3));
-            userPossibilities.replace("threesPoints", false);
-            userTurn = false;
+            user.userResult.replace("threesPoints", user.count(user.dicesList,3));
+            user.userPossibilities.replace("threesPoints", false);
+            user.userTurn = false;
         }
 
 
-        if (userPossibilities.get("foursPoints")) {
+        if (user.userPossibilities.get("foursPoints")) {
 //..
-            userResult.replace("foursPoints", user.count(dicesList,4));
-            userPossibilities.replace("foursPoints", false);
-            userTurn = false;
+            user.userResult.replace("foursPoints", user.count(user.dicesList,4));
+            user.userPossibilities.replace("foursPoints", false);
+            user.userTurn = false;
         }
 
-        if (userPossibilities.get("fivesPoints")) {
+        if (user.userPossibilities.get("fivesPoints")) {
 //..
-            userResult.replace("fivesPoints", user.count(dicesList,5));
-            userPossibilities.replace("fivesPoints", false);
-            userTurn = false;
-        }
-
-
-        if (userPossibilities.get("sixesPoints")) {
-//..
-            userResult.replace("sixesPoints", user.count(dicesList,6));
-            userPossibilities.replace("sixesPoints", false);
-            userTurn = false;
+            user.userResult.replace("fivesPoints", user.count(user.dicesList,5));
+            user.userPossibilities.replace("fivesPoints", false);
+            user.userTurn = false;
         }
 
 
-        if (userPossibilities.get("threeOfAKindPoints")) {
+        if (user.userPossibilities.get("sixesPoints")) {
 //..
-            userResult.replace("threeOfAKindPoints", user.countThreeOfAKind(dicesList));
-            userPossibilities.replace("threeOfAKindPoints", false);
-            userTurn = false;
+            user.userResult.replace("sixesPoints", user.count(user.dicesList,6));
+            user.userPossibilities.replace("sixesPoints", false);
+            user.userTurn = false;
         }
 
 
-        if (userPossibilities.get("fourOfAKindPoints")) {
+        if (user.userPossibilities.get("threeOfAKindPoints")) {
 //..
-            userResult.replace("fourOfAKindPoints", user.countFourOfAKind(dicesList));
-            userPossibilities.replace("fourOfAKindPoints", false);
-            userTurn = false;
-        }
-
-        if (userPossibilities.get("fullHousePoints")) {
-//..
-            userResult.replace("fullHousePoints", user.countFullHouse(dicesList));
-            userPossibilities.replace("fullHousePoints", false);
-            userTurn = false;
+            user.userResult.replace("threeOfAKindPoints", user.countThreeOfAKind(user.dicesList));
+            user.userPossibilities.replace("threeOfAKindPoints", false);
+            user.userTurn = false;
         }
 
 
-        if (userPossibilities.get("smallStraightPoints")) {
+        if (user.userPossibilities.get("fourOfAKindPoints")) {
 //..
-            userResult.replace("smallStraightPoints", user.countSmallStraight(dicesList));
-            userPossibilities.replace("smallStraightPoints", false);
-            userTurn = false;
+            user.userResult.replace("fourOfAKindPoints", user.countFourOfAKind(user.dicesList));
+            user.userPossibilities.replace("fourOfAKindPoints", false);
+            user.userTurn = false;
         }
 
-        if (userPossibilities.get("largeStraightPoints")) {
+        if (user.userPossibilities.get("fullHousePoints")) {
 //..
-            userResult.replace("largeStraightPoints", user.countLargeStraight(dicesList));
-            userPossibilities.replace("largeStraightPoints", false);
-            userTurn = false;
-        }
-
-
-        if (userPossibilities.get("5dicePoints")) {
-//..
-            userResult.replace("5dicePoints", user.count5dice(dicesList));
-            userPossibilities.replace("5dicePoints", false);
-            userTurn = false;
+            user.userResult.replace("fullHousePoints", user.countFullHouse(user.dicesList));
+            user.userPossibilities.replace("fullHousePoints", false);
+            user.userTurn = false;
         }
 
 
-        if (userPossibilities.get("chancePoints")) {
+        if (user.userPossibilities.get("smallStraightPoints")) {
 //..
-            userResult.replace("chancePoints", user.countChance(dicesList));
-            userPossibilities.replace("chancePoints", false);
-            userTurn = false;
+            user.userResult.replace("smallStraightPoints", user.countSmallStraight(user.dicesList));
+            user.userPossibilities.replace("smallStraightPoints", false);
+            user.userTurn = false;
+        }
+
+        if (user.userPossibilities.get("largeStraightPoints")) {
+//..
+            user.userResult.replace("largeStraightPoints", user.countLargeStraight(user.dicesList));
+            user.userPossibilities.replace("largeStraightPoints", false);
+            user.userTurn = false;
+        }
+
+
+        if (user.userPossibilities.get("5dicePoints")) {
+//..
+            user.userResult.replace("5dicePoints", user.count5dice(user.dicesList));
+            user.userPossibilities.replace("5dicePoints", false);
+            user.userTurn = false;
+        }
+
+
+        if (user.userPossibilities.get("chancePoints")) {
+//..
+            user.userResult.replace("chancePoints", user.countChance(user.dicesList));
+            user.userPossibilities.replace("chancePoints", false);
+            user.userTurn = false;
         }
 
 
         if (
-                (((!userPossibilities.get("acesPoints")) && (!userPossibilities.get("twosPoints")) && (!userPossibilities.get("threesPoints")) &&
-                        (!userPossibilities.get("foursPoints")) && (!userPossibilities.get("fivesPoints")) && (!userPossibilities.get("sixesPoints")))
+                (((!user.userPossibilities.get("acesPoints")) && (!user.userPossibilities.get("twosPoints")) && (!user.userPossibilities.get("threesPoints")) &&
+                        (!user.userPossibilities.get("foursPoints")) && (!user.userPossibilities.get("fivesPoints")) && (!user.userPossibilities.get("sixesPoints")))
                         &&
-                        ((userResult.get("acesPoints")) + (userResult.get("twosPoints")) + (userResult.get("threesPoints")) + (userResult.get("foursPoints")) + (userResult.get("fivesPoints")) + (userResult.get("sixesPoints"))) >= 65)) {
-            userResult.replace("bonusPoints", 35);
+                        ((user.userResult.get("acesPoints")) + (user.userResult.get("twosPoints")) + (user.userResult.get("threesPoints")) + (user.userResult.get("foursPoints")) + (user.userResult.get("fivesPoints")) + (user.userResult.get("sixesPoints"))) >= 65)) {
+            user.userResult.replace("bonusPoints", 35);
         }
 
     }

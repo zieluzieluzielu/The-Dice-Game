@@ -1,12 +1,17 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public class User {
+
+    boolean userTurn;
+
     HashMap<String,Boolean> userPossibilities = new HashMap<String,Boolean>();
     HashMap<String, Integer> userResult = new HashMap<String, Integer>();
+    ArrayList<Integer> dicesList = new ArrayList<Integer>();
 
     int count(List<Integer> dicesList, int whatToCount){
         if (dicesList.contains(1)) {

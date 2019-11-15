@@ -20,7 +20,7 @@ public class TheDiceGame extends Application {
 
         User user = new User();
         User computer = new User();
-        boolean userTurn = true;
+
         PointCounter pointCounter = new PointCounter();
 
         Dice dice1 = new Dice(0, false);
@@ -44,12 +44,12 @@ public class TheDiceGame extends Application {
         //KLIKNIECIE W JEDNĄ Z KOSCI [button]
         dice1.selectDice();
 
-        ArrayList<Integer> dicesList = new ArrayList<Integer>();
-        dicesList.add(dice1.getValue());
-        dicesList.add(dice2.getValue());
-        dicesList.add(dice3.getValue());
-        dicesList.add(dice4.getValue());
-        dicesList.add(dice5.getValue());
+
+        user.dicesList.add(dice1.getValue());
+        user.dicesList.add(dice2.getValue());
+        user.dicesList.add(dice3.getValue());
+        user.dicesList.add(dice4.getValue());
+        user.dicesList.add(dice5.getValue());
 
         //Kolejna runda
         //NIEKLIKNIĘCIE W KOSC - KLIKNIECIE W ROLL THE DICE [ button ]
@@ -59,12 +59,12 @@ public class TheDiceGame extends Application {
         dice4.rollTheDice();
         dice5.rollTheDice();
 
-        dicesList.clear();
-        dicesList.add(dice1.getValue());
-        dicesList.add(dice2.getValue());
-        dicesList.add(dice3.getValue());
-        dicesList.add(dice4.getValue());
-        dicesList.add(dice5.getValue());
+        user.dicesList.clear();
+        user.dicesList.add(dice1.getValue());
+        user.dicesList.add(dice2.getValue());
+        user.dicesList.add(dice3.getValue());
+        user.dicesList.add(dice4.getValue());
+        user.dicesList.add(dice5.getValue());
 
         //PO RZUCIE: automatyczne wyliczanie punktów z wykorzystaniem metod z klasy User - PointCounter
         pointCounter.rollTheDicePointCounter(user);
@@ -74,6 +74,7 @@ public class TheDiceGame extends Application {
         user.userPossibilities.put("acesPoints",true);
         user.userPossibilities.put("twosPoints",true);
         user.userPossibilities.put("threesPoints",true);
+
         //PUNKTACJA USERA:
         user.userResult.put("acesPoints", 0);
         user.userResult.put("twosPoints", 0);
@@ -85,8 +86,6 @@ public class TheDiceGame extends Application {
         //..
 
 
-
-        //...
 
         HashMap<String, Integer> computerResult = new HashMap<String, Integer>();
         computerResult.put("acesPoints", 0);
@@ -132,7 +131,7 @@ public class TheDiceGame extends Application {
 
         computerResult.replace(..,...);
         computerPossibilities.replace(..,false);
-        userTurn = true;
+        user.userTurn = true;
         */
 
             }

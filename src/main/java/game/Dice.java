@@ -2,6 +2,7 @@ package game;
 
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Dice {
