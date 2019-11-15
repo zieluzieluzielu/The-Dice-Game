@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class User {
+    HashMap<String,Boolean> userPossibilities = new HashMap<String,Boolean>();
+    HashMap<String, Integer> userResult = new HashMap<String, Integer>();
 
     int count(List<Integer> dicesList, int whatToCount){
         if (dicesList.contains(1)) {

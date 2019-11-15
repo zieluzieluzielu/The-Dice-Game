@@ -2,6 +2,8 @@ package game;
 
 public class PointCounter {
 
+
+
     void rollTheDicePointCounter(User user) {
 
         //bardziej rozbudowany if - do populacji w pozostałych poniżej

@@ -66,20 +66,26 @@ public class TheDiceGame extends Application {
         dicesList.add(dice4.getValue());
         dicesList.add(dice5.getValue());
 
-        //count the points
+        //PO RZUCIE: automatyczne wyliczanie punktów z wykorzystaniem metod z klasy User - PointCounter
         pointCounter.rollTheDicePointCounter(user);
         //...
 
-        //PO RZUCIE: automatyczne wyliczanie punktów z wykorzystaniem metod z klasy User - PointCounter
+        //MOŻLIWOŚCI RZUTU USERA:
+        user.userPossibilities.put("acesPoints",true);
+        user.userPossibilities.put("twosPoints",true);
+        user.userPossibilities.put("threesPoints",true);
+        //PUNKTACJA USERA:
+        user.userResult.put("acesPoints", 0);
+        user.userResult.put("twosPoints", 0);
+        user.userResult.put("threesPoints", 0);
+        //...
 
         HashMap<String, Boolean> computerPossibilities = new HashMap<String, Boolean>();
         computerPossibilities.put("acesPoints", true);
         //..
 
-        HashMap<String, Integer> userResult = new HashMap<String, Integer>();
-        userResult.put("acesPoints", 0);
-        userResult.put("twosPoints", 0);
-        userResult.put("threesPoints", 0);
+
+
         //...
 
         HashMap<String, Integer> computerResult = new HashMap<String, Integer>();
