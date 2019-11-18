@@ -1,5 +1,8 @@
-package game;
+package ui;
 
+import game.Dice;
+import game.PointCounter;
+import game.User;
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.scene.image.Image;
@@ -10,15 +13,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class TheDiceGame extends Application {
+public class TheDiceGame extends Application {/*
 
     private Image imageback = new Image("bckgrnd.jpg");
-    private FlowPane dices = new FlowPane(Orientation.HORIZONTAL);
+    private FlowPane dices = new FlowPane(Orientation.HORIZONTAL);*/
 
     @Override
     public void start(Stage primaryStage) {
 
-        User user = new User();
+        /*User user = new User();
         User computer = new User();
 
         PointCounter pointCounter = new PointCounter();
@@ -70,16 +73,18 @@ public class TheDiceGame extends Application {
         pointCounter.rollTheDicePointCounter(user);
         //...
 
-        //MOŻLIWOŚCI RZUTU USERA:
+
+        //MOŻLIWOŚCI RZUTU USERA (osobna klasa)
         user.userPossibilities.put("acesPoints",true);
         user.userPossibilities.put("twosPoints",true);
         user.userPossibilities.put("threesPoints",true);
 
-        //PUNKTACJA USERA:
+        //PUNKTACJA USERA (osobna klasa)
         user.userResult.put("acesPoints", 0);
         user.userResult.put("twosPoints", 0);
         user.userResult.put("threesPoints", 0);
-        //...
+        //...*/
+/*
 
         HashMap<String, Boolean> computerPossibilities = new HashMap<String, Boolean>();
         computerPossibilities.put("acesPoints", true);
@@ -90,6 +95,7 @@ public class TheDiceGame extends Application {
         HashMap<String, Integer> computerResult = new HashMap<String, Integer>();
         computerResult.put("acesPoints", 0);
         //...
+*/
 
 
         /*TABELA (GRAFICZNA)

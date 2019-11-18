@@ -4,19 +4,70 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class User {
 
+    Random random = new Random();
+
+
+
     boolean userTurn;
 
-    HashMap<String,Boolean> userPossibilities = new HashMap<String,Boolean>();
-    HashMap<String, Integer> userResult = new HashMap<String, Integer>();
-    ArrayList<Integer> dicesList = new ArrayList<Integer>();
+    public int rollTheDice(Dice dice){
+        if (!dice.getSelected()) {
+            dice.value = random.nextInt(6)+1;
+            return dice.value;
+        }
+        else return dice.value;
+    }
 
-    int count(List<Integer> dicesList, int whatToCount){
-        if (dicesList.contains(1)) {
-            int occurrences = Collections.frequency(dicesList, whatToCount);
-            return occurrences*1;
+    public void userThrow (List<Dice> diceList, User user) {
+        for (int n = 1; n <= diceList.size(); n++) {
+            user.rollTheDice(diceList.get(n));
+        }
+    }
+
+    public boolean selectDice(Dice dice){
+        if (!dice.selected){
+            return dice.selected = true;
+        }
+        else {
+            System.out.println("Dice was already selected");
+            return dice.selected;
+        }
+    }
+
+    public void addDicesToList (List<Dice> diceList, List<Integer> dicesList){
+        for (int n = 1; n <= diceList.size(); n++) {
+            dicesList.add(diceList.get(n).getValue());
+        }
+    }
+
+
+
+
+    HashMap<Score,Boolean> userPossibilities = new HashMap<>(); //(osobna klasa)
+    HashMap<Score,Integer> userResult = new HashMap<>(); //(osobna klasa)
+    HashMap<Score,Integer> userTemporarResult = new HashMap<>(); //(osobna klasa)
+
+
+    //!opakowywanie stringow ew. zamienianie mapy w liste z obiektami
+
+    ArrayList<Integer> dicesList = new ArrayList<Integer>(); //(osobna klasa)
+    ArrayList<Dice> diceList = new ArrayList<Dice>(); //(osobna klasa)
+
+
+    int diceFrequency(List<Integer> dicesList, int whatToCount) {
+        return  Collections.frequency(dicesList, whatToCount);
+
+    }
+
+
+    public int count(List<Integer> dicesList, int whatToCount){
+        if (dicesList.contains(whatToCount)) {
+            int occurrences = diceFrequency(dicesList, whatToCount);
+            return occurrences*whatToCount;
         }
         else {
             return 0;
@@ -25,8 +76,8 @@ public class User {
     }
 
     int countThreeOfAKind(List<Integer> dicesList) {
-        if (Collections.frequency(dicesList, 1)>=3 || Collections.frequency(dicesList, 2)>=3 || Collections.frequency(dicesList, 3)>=3 ||
-                Collections.frequency(dicesList, 4)>=3 || Collections.frequency(dicesList, 5)>=3 || Collections.frequency(dicesList, 6)>=3) {
+        if (diceFrequency(dicesList, 1)>=3 || diceFrequency(dicesList, 2)>=3 || diceFrequency(dicesList, 3)>=3 ||
+                diceFrequency(dicesList, 4)>=3 || diceFrequency(dicesList, 5)>=3 || diceFrequency(dicesList, 6)>=3) {
             int sum = dicesList.stream().mapToInt(Integer::intValue).sum();
             return sum;
         }
@@ -37,8 +88,8 @@ public class User {
 
 
     int countFourOfAKind(List<Integer> dicesList) {
-        if (Collections.frequency(dicesList, 1)>=4 || Collections.frequency(dicesList, 2)>=4 || Collections.frequency(dicesList, 3)>=4 ||
-                Collections.frequency(dicesList, 4)>=4 || Collections.frequency(dicesList, 5)>=4 || Collections.frequency(dicesList, 6)>=4) {
+        if (diceFrequency(dicesList, 1)>=4 || diceFrequency(dicesList, 2)>=4 || diceFrequency(dicesList, 3)>=4 ||
+                diceFrequency(dicesList, 4)>=4 || diceFrequency(dicesList, 5)>=4 || diceFrequency(dicesList, 6)>=4) {
             int sum = dicesList.stream().mapToInt(Integer::intValue).sum();
             return sum;
         }
@@ -50,29 +101,29 @@ public class User {
 
     int countFullHouse(List<Integer> dicesList) {
         if (
-                ((Collections.frequency(dicesList, 1)==3)
+                ((diceFrequency(dicesList, 1)==3)
                         &&
-                        (Collections.frequency(dicesList, 2)==2 || Collections.frequency(dicesList, 3)==2 || Collections.frequency(dicesList, 4)==2 || Collections.frequency(dicesList, 5)==2 || Collections.frequency(dicesList, 6)==2))
+                        (diceFrequency(dicesList, 2)==2 || diceFrequency(dicesList, 3)==2 || diceFrequency(dicesList, 4)==2 || diceFrequency(dicesList, 5)==2 || diceFrequency(dicesList, 6)==2))
                         ||
-                        ((Collections.frequency(dicesList, 2)==3)
+                        ((diceFrequency(dicesList, 2)==3)
                                 &&
-                                (Collections.frequency(dicesList, 1)==2 || Collections.frequency(dicesList, 3)==2 || Collections.frequency(dicesList, 4)==2 || Collections.frequency(dicesList, 5)==2 || Collections.frequency(dicesList, 6)==2))
+                                (diceFrequency(dicesList, 1)==2 || diceFrequency(dicesList, 3)==2 || diceFrequency(dicesList, 4)==2 || diceFrequency(dicesList, 5)==2 || diceFrequency(dicesList, 6)==2))
                         ||
-                        ((Collections.frequency(dicesList, 3)==3)
+                        ((diceFrequency(dicesList, 3)==3)
                                 &&
-                                (Collections.frequency(dicesList, 1)==2 || Collections.frequency(dicesList, 2)==2 || Collections.frequency(dicesList, 4)==2 || Collections.frequency(dicesList, 5)==2 || Collections.frequency(dicesList, 6)==2))
+                                (diceFrequency(dicesList, 1)==2 || diceFrequency(dicesList, 2)==2 || diceFrequency(dicesList, 4)==2 || diceFrequency(dicesList, 5)==2 || diceFrequency(dicesList, 6)==2))
                         ||
-                        ((Collections.frequency(dicesList, 4)==3)
+                        ((diceFrequency(dicesList, 4)==3)
                                 &&
-                                (Collections.frequency(dicesList, 1)==2 || Collections.frequency(dicesList, 2)==2 || Collections.frequency(dicesList, 3)==2 || Collections.frequency(dicesList, 5)==2 || Collections.frequency(dicesList, 6)==2))
+                                (diceFrequency(dicesList, 1)==2 || diceFrequency(dicesList, 2)==2 || diceFrequency(dicesList, 3)==2 || diceFrequency(dicesList, 5)==2 || diceFrequency(dicesList, 6)==2))
                         ||
-                        ((Collections.frequency(dicesList, 5)==3)
+                        ((diceFrequency(dicesList, 5)==3)
                                 &&
-                                (Collections.frequency(dicesList, 1)==2 || Collections.frequency(dicesList, 2)==2 || Collections.frequency(dicesList, 3)==2 || Collections.frequency(dicesList, 4)==2 || Collections.frequency(dicesList, 6)==2))
+                                (diceFrequency(dicesList, 1)==2 || diceFrequency(dicesList, 2)==2 || diceFrequency(dicesList, 3)==2 || diceFrequency(dicesList, 4)==2 || diceFrequency(dicesList, 6)==2))
                         ||
-                        ((Collections.frequency(dicesList, 6)==3)
+                        ((diceFrequency(dicesList, 6)==3)
                                 &&
-                                (Collections.frequency(dicesList, 1)==2 || Collections.frequency(dicesList, 2)==2 || Collections.frequency(dicesList, 3)==2 || Collections.frequency(dicesList, 4)==2 || Collections.frequency(dicesList, 5)==2))
+                                (diceFrequency(dicesList, 1)==2 || diceFrequency(dicesList, 2)==2 || diceFrequency(dicesList, 3)==2 || diceFrequency(dicesList, 4)==2 || diceFrequency(dicesList, 5)==2))
         ) {
             int sum = dicesList.stream().mapToInt(Integer::intValue).sum();
             return sum;
@@ -113,8 +164,8 @@ public class User {
 
 
     int count5dice(List<Integer> dicesList) {
-        if (Collections.frequency(dicesList, 1)>=5 || Collections.frequency(dicesList, 2)>=5 || Collections.frequency(dicesList, 3)>=5 ||
-                Collections.frequency(dicesList, 4)>=5 || Collections.frequency(dicesList, 5)>=5 || Collections.frequency(dicesList, 6)>=5) {
+        if (diceFrequency(dicesList, 1)>=5 || diceFrequency(dicesList, 2)>=5 || diceFrequency(dicesList, 3)>=5 ||
+                diceFrequency(dicesList, 4)>=5 || diceFrequency(dicesList, 5)>=5 || diceFrequency(dicesList, 6)>=5) {
             return 50;
         }
         else {
@@ -129,7 +180,7 @@ public class User {
     }
 
 
-    int topScore(HashMap<String,Integer> result) {
+   public int topScore(HashMap<String,Integer> result) {
         int countTopScore = ((result.get("acesPoints"))+(result.get("twosPoints"))+(result.get("threesPoints"))+(result.get("foursPoints"))+(result.get("fivesPoints"))+(result.get("sixesPoints")));
         return result.replace("topScorePoints",countTopScore);
     }
