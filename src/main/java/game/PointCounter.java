@@ -1,6 +1,5 @@
 package game;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class PointCounter {
@@ -21,11 +20,14 @@ public class PointCounter {
     Score chance = new Score("Chance");
 
     Score bonusPoints = new Score("BonusPoints");
+    Score topScore = new Score("Top Score");
+    Score bottomScore = new Score("Bottom Score");
 
-    public int tableResult(Score score, User user){
+    public int tableResult(Score score, User user) {
         if (!user.userPossibilities.get(score)) {
             return user.userResult.get(score);
-        } else if(user.userPossibilities.get(score)) {
+        }
+        else if (user.userPossibilities.get(score)) {
             return user.userTemporarResult.get(score);
         }
         else {
@@ -34,194 +36,222 @@ public class PointCounter {
     }
 
     public void acesAcceptanceButton(User user) {
-        user.userResult.replace(aces, user.count(user.dicesList,1));
+        user.userResult.replace(aces, user.count(user.dicesIntList, 1));
         user.userPossibilities.replace(aces, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void twosAcceptanceButton(User user) {
-        user.userResult.replace(twos, user.count(user.dicesList,2));
+        user.userResult.replace(twos, user.count(user.dicesIntList, 2));
         user.userPossibilities.replace(twos, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void threesAcceptanceButton(User user) {
-        user.userResult.replace(threes, user.count(user.dicesList,3));
+        user.userResult.replace(threes, user.count(user.dicesIntList, 3));
         user.userPossibilities.replace(threes, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void foursAcceptanceButton(User user) {
-        user.userResult.replace(fours, user.count(user.dicesList,4));
+        user.userResult.replace(fours, user.count(user.dicesIntList, 4));
         user.userPossibilities.replace(fours, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void fivesAcceptanceButton(User user) {
-        user.userResult.replace(fives, user.count(user.dicesList,5));
+        user.userResult.replace(fives, user.count(user.dicesIntList, 5));
         user.userPossibilities.replace(fives, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void sixesAcceptanceButton(User user) {
-        user.userResult.replace(sixes, user.count(user.dicesList,6));
+        user.userResult.replace(sixes, user.count(user.dicesIntList, 6));
         user.userPossibilities.replace(sixes, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void threeOfaAKindAcceptanceButton(User user) {
-        user.userResult.replace(threeOfaAKind, user.countThreeOfAKind(user.dicesList));
+        user.userResult.replace(threeOfaAKind, user.countThreeOfAKind(user.dicesIntList));
         user.userPossibilities.replace(threeOfaAKind, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
+
     public void fourOfaAKindOfaAKindAcceptanceButton(User user) {
-        user.userResult.replace(fourOfaAKind, user.countFourOfAKind(user.dicesList));
+        user.userResult.replace(fourOfaAKind, user.countFourOfAKind(user.dicesIntList));
         user.userPossibilities.replace(fourOfaAKind, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void fullHouseAcceptanceButton(User user) {
-        user.userResult.replace(fullHouse, user.countFullHouse(user.dicesList));
+        user.userResult.replace(fullHouse, user.countFullHouse(user.dicesIntList));
         user.userPossibilities.replace(fullHouse, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void smallStraightAcceptanceButton(User user) {
-        user.userResult.replace(smallStraight, user.countSmallStraight(user.dicesList));
+        user.userResult.replace(smallStraight, user.countSmallStraight(user.dicesIntList));
         user.userPossibilities.replace(smallStraight, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void largeStraightAcceptanceButton(User user) {
-        user.userResult.replace(largeStraight, user.countLargeStraight(user.dicesList));
+        user.userResult.replace(largeStraight, user.countLargeStraight(user.dicesIntList));
         user.userPossibilities.replace(largeStraight, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void fiveDiceAcceptanceButton(User user) {
-        user.userResult.replace(fiveDice, user.count5dice(user.dicesList));
+        user.userResult.replace(fiveDice, user.count5dice(user.dicesIntList));
         user.userPossibilities.replace(fiveDice, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
     public void chanceAcceptanceButton(User user) {
-        user.userResult.replace(chance, user.countChance(user.dicesList));
+        user.userResult.replace(chance, user.countChance(user.dicesIntList));
         user.userPossibilities.replace(chance, false);
         user.userTurn = false;
+        clearTheTemporaryPoints(user);
     }
 
 
     public void rollTheDicePointCounter(User user) {
 
         if (user.userPossibilities.get(aces)) {
-            user.userTemporarResult.replace(aces,user.count(user.dicesList,1));
-            //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
+            user.userTemporarResult.replace(aces, user.count(user.dicesIntList, 1));
+            //[BUTTON] zatwierdzający:
             acesAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(twos)) {
-            user.userTemporarResult.replace(twos,user.count(user.dicesList,2));
-            //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
+            user.userTemporarResult.replace(twos, user.count(user.dicesIntList, 2));
+            //[BUTTON] zatwierdzający:
             twosAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(threes)) {
-            user.userTemporarResult.replace(threes,user.count(user.dicesList,3));
-            //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
+            user.userTemporarResult.replace(threes, user.count(user.dicesIntList, 3));
+            //[BUTTON] zatwierdzający:
             threesAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(fours)) {
-            user.userTemporarResult.replace(fours,user.count(user.dicesList,4));
+            user.userTemporarResult.replace(fours, user.count(user.dicesIntList, 4));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             foursAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(fives)) {
-            user.userTemporarResult.replace(fives,user.count(user.dicesList,5));
+            user.userTemporarResult.replace(fives, user.count(user.dicesIntList, 5));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             fivesAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(sixes)) {
-            user.userTemporarResult.replace(sixes,user.count(user.dicesList,6));
+            user.userTemporarResult.replace(sixes, user.count(user.dicesIntList, 6));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             sixesAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(threeOfaAKind)) {
-            user.userTemporarResult.replace(threeOfaAKind,user.countThreeOfAKind(user.dicesList));
+            user.userTemporarResult.replace(threeOfaAKind, user.countThreeOfAKind(user.dicesIntList));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             threeOfaAKindAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(fourOfaAKind)) {
-            user.userTemporarResult.replace(fourOfaAKind,user.countFourOfAKind(user.dicesList));
+            user.userTemporarResult.replace(fourOfaAKind, user.countFourOfAKind(user.dicesIntList));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             fourOfaAKindOfaAKindAcceptanceButton(user);
         }
 
         if (user.userPossibilities.get(fullHouse)) {
-            user.userTemporarResult.replace(fullHouse,user.countFullHouse(user.dicesList));
+            user.userTemporarResult.replace(fullHouse, user.countFullHouse(user.dicesIntList));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             fullHouseAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(smallStraight)) {
-            user.userTemporarResult.replace(smallStraight,user.countSmallStraight(user.dicesList));
-            //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
+            user.userTemporarResult.replace(smallStraight, user.countSmallStraight(user.dicesIntList));
+            //[BUTTON] zatwierdzający:
             smallStraightAcceptanceButton(user);
 
         }
 
         if (user.userPossibilities.get(largeStraight)) {
-            user.userTemporarResult.replace(largeStraight,user.countLargeStraight(user.dicesList));
-            //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
+            user.userTemporarResult.replace(largeStraight, user.countLargeStraight(user.dicesIntList));
+            //[BUTTON] zatwierdzający:
             largeStraightAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(fiveDice)) {
-            user.userTemporarResult.replace(fiveDice,user.count5dice(user.dicesList));
-            //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
+            user.userTemporarResult.replace(fiveDice, user.count5dice(user.dicesIntList));
+            //[BUTTON] zatwierdzający:
             fiveDiceAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(chance)) {
-            user.userTemporarResult.replace(chance,user.countChance(user.dicesList));
-            //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
+            user.userTemporarResult.replace(chance, user.countChance(user.dicesIntList));
+            //[BUTTON] zatwierdzający:
             chanceAcceptanceButton(user);
         }
 
 
         if (user.userPossibilities.get(bonusPoints)) {
             if
-        (
-                (((!user.userPossibilities.get(aces)) && (!user.userPossibilities.get(twos)) && (!user.userPossibilities.get(threes)) &&
-                        (!user.userPossibilities.get(fours)) && (!user.userPossibilities.get(fives)) && (!user.userPossibilities.get(sixes)))
-                        &&
-                        ((user.userResult.get(aces)) + (user.userResult.get(twos)) + (user.userResult.get(threes)) + (user.userResult.get(fours)) +
-                                (user.userResult.get(fives)) + (user.userResult.get(sixes))) >= 65)) {
-            user.userResult.replace(bonusPoints, 35);
-            user.userPossibilities.replace(bonusPoints, false);
+            (((user.userResult.get(aces)) + (user.userResult.get(twos)) + (user.userResult.get(threes)) + (user.userResult.get(fours)) +
+                    (user.userResult.get(fives)) + (user.userResult.get(sixes))) >= 65) {
+                user.userResult.replace(bonusPoints, 35);
+                user.userPossibilities.replace(bonusPoints, false);
             }
         }
 
+        user.userResult.replace(topScore, user.topScore(user.userResult));
+        user.userResult.replace(bottomScore, user.bottomScore(user.userResult));
+
+    }
+
+    public int getBottomScore(User user) {
+        int bottomScore = user.bottomScore(user.userResult);
+        return bottomScore;
+    }
+
+    public int getTopScore(User user) {
+        int topScore = user.topScore(user.userResult);
+        return topScore;
+    }
+
+    public int getTotalScore(User user) {
+        int totalScore = user.totalScore(user.userResult);
+        return totalScore;
     }
 
     public void clearTheTemporaryPoints(User user) {
         for (Map.Entry<Score, Integer> entry : user.userTemporarResult.entrySet()) {
             entry.setValue(0);
         }
-        }
 
     }
+}
