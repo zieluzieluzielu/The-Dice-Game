@@ -21,9 +21,9 @@ public class Computer {
     Score chance = new Score("Chance");
     Score bonusPoints = new Score("Bonus");
 
-    HashMap<Score, Boolean> computerPossibilities = new HashMap<>(); //(osobna klasa?)
-    HashMap<Score, Integer> computerResult = new HashMap<>(); //(osobna klasa?)
-    ArrayList<Score> computerTemporarResult = new ArrayList<>(); //(osobna klasa?)
+    public HashMap<Score, Boolean> computerPossibilities = new HashMap<>(); //(osobna klasa?)
+    public HashMap<Score, Integer> computerResult = new HashMap<>(); //(osobna klasa?)
+    public ArrayList<Score> computerTemporarResult = new ArrayList<>(); //(osobna klasa?)
 
     Random random = new Random();
 

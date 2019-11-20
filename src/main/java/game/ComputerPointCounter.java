@@ -3,6 +3,9 @@ package game;
 import java.util.Random;
 
 public class ComputerPointCounter {
+
+    ComputerDrawResult computerDrawResult = new ComputerDrawResult();
+
     public int roundNr = 1;
     Score aces = new Score("Aces");
     Score twos = new Score("Twos");
@@ -82,7 +85,8 @@ public class ComputerPointCounter {
 
     public void computerTurn(Computer computer, User user) {
         if (!user.userTurn) {
-            Score drawnResult = computer.computerTemporarResult.get(random.nextInt(computer.computerTemporarResult.size()));
+            Score drawnResult = computerDrawResult.draw();
+            //Score drawnResult = computer.computerTemporarResult.get(random.nextInt(computer.computerTemporarResult.size()));
 
             if (drawnResult.equals(aces)) {
                 computer.computerResult.replace(aces, computer.countAces());

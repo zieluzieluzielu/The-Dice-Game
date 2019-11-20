@@ -23,14 +23,13 @@ public class PointCounter {
     Score topScore = new Score("Top Score");
     Score bottomScore = new Score("Bottom Score");
 
+
     public int tableResult(Score score, User user) {
         if (!user.userPossibilities.get(score)) {
             return user.userResult.get(score);
-        }
-        else if (user.userPossibilities.get(score)) {
+        } else if (user.userPossibilities.get(score)) {
             return user.userTemporarResult.get(score);
-        }
-        else {
+        } else {
             return 0;
         }
     }

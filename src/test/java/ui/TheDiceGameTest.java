@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 
 public class TheDiceGameTest {
 
@@ -204,6 +209,12 @@ public class TheDiceGameTest {
         computerPointCounter.getTotalScore(computer);
 
         computerPointCounter.tableResult(bonusPoints, computer);
+
+        //zamockowana klasa ruchu komputera
+        ComputerDrawResult computerDrawResultMock = mock(ComputerDrawResult.class);
+        when(computerDrawResultMock.draw()).thenReturn(aces);
+        Computer computerMock = mock(Computer.class);
+        when(computerMock.countAces()).thenReturn(4);
 
 
         //WHEN

@@ -66,17 +66,17 @@ public class User {
     }
 
 
+    int diceFrequency(List<Integer> dicesIntList, int whatToCount) {
+        return Collections.frequency(dicesIntList, whatToCount);
+
+    }
+
     HashMap<Score, Boolean> userPossibilities = new HashMap<>();
     HashMap<Score, Integer> userResult = new HashMap<>();
     HashMap<Score, Integer> userTemporarResult = new HashMap<>();
     ArrayList<Integer> dicesIntList = new ArrayList<Integer>();
     ArrayList<Dice> diceList = new ArrayList<Dice>();
 
-
-    int diceFrequency(List<Integer> dicesIntList, int whatToCount) {
-        return Collections.frequency(dicesIntList, whatToCount);
-
-    }
 
     public int count(List<Integer> dicesIntList, int whatToCount) {
         if (dicesIntList.contains(whatToCount)) {
