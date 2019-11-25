@@ -1,40 +1,89 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class User {
 
-    Random random = new Random();
+    Random random;
+
+    public User(Random random) {
+        this.random = random;
+    }
 
     public boolean userTurn;
 
-    Score aces = new Score("Aces");
-    Score twos = new Score("Twos");
-    Score threes = new Score("Threes");
-    Score fours = new Score("Fours");
-    Score fives = new Score("Fives");
-    Score sixes = new Score("Sixes");
-    Score threeOfaAKind = new Score("Three Of A Kind");
-    Score fourOfaAKind = new Score("Four Of A Kind");
-    Score fullHouse = new Score("Full House");
-    Score smallStraight = new Score("Small Straight");
-    Score largeStraight = new Score("Large Straight");
-    Score fiveDice = new Score("5 dice");
-    Score chance = new Score("Chance");
-    Score bonusPoints = new Score("Bonus");
+    private ArrayList<Dice> diceList = new ArrayList<>();
+
+    private ArrayList<Integer> dicesIntList = new ArrayList<>();
+
+    public ArrayList<Integer> getDicesIntList() {
+        return dicesIntList;
+    }
+    public ArrayList<Dice> getDicesList() {
+        return diceList;
+    }
+
+    //na potrzeby testow:
+    public void userThrow1() {
+        diceList.clear();
+        diceList.add(new Dice(random.nextInt(6)+1 , false));
+        diceList.add(new Dice(random.nextInt(6)+1 , false));
+        diceList.add(new Dice(random.nextInt(6)+1 , false));
+        diceList.add(new Dice(random.nextInt(6)+1 , false));
+        diceList.add(new Dice(random.nextInt(6)+1 , false));
+    }
+
+
+    public ArrayList<Integer> mapDices(ArrayList<Dice> list) {
+        ArrayList<Integer> dicesIntList = new ArrayList<Integer>();
+            for (Dice dice : list) {
+                dicesIntList.add(dice.getValue());
+            }
+        return dicesIntList;
+    }
+
+
+    public ArrayList<Dice> getDiceList() {
+        return diceList;
+    }
+
+    public int singleDiceRoll() {
+        return random.nextInt(6) + 1;
+    }
 
     public int rollTheDice(Dice dice) {
         if (!dice.getSelected()) {
-            dice.value = random.nextInt(6) + 1;
-            return dice.value;
+            return singleDiceRoll();
         } else return dice.value;
     }
 
+
+    public int sumofDices(List<Dice> diceList) {
+        int sum = 0;
+        for (int n = 0; n < diceList.size(); n++) {
+            sum += diceList.get(n).getValue();
+        }
+        return sum;
+    }
+
+    //docelowy:
     public void userThrow(List<Dice> diceList) {
+        for (int n = 1; n <= diceList.size(); n++) {
+            rollTheDice(diceList.get(n));
+        }
+    }
+
+
+    int totalScore(HashMap<Score, Integer> result) {
+        return result.values().stream().mapToInt(Integer::intValue).sum();
+        //return topScore(result)+bottomScore(result);
+    }
+
+    public void reThrowDices(List<Dice> diceList) {
         for (int n = 1; n <= diceList.size(); n++) {
             rollTheDice(diceList.get(n));
         }
@@ -65,139 +114,6 @@ public class User {
         }
     }
 
-
-    int diceFrequency(List<Integer> dicesIntList, int whatToCount) {
-        return Collections.frequency(dicesIntList, whatToCount);
-
-    }
-
-    HashMap<Score, Boolean> userPossibilities = new HashMap<>();
-    HashMap<Score, Integer> userResult = new HashMap<>();
-    HashMap<Score, Integer> userTemporarResult = new HashMap<>();
-    ArrayList<Integer> dicesIntList = new ArrayList<Integer>();
-    ArrayList<Dice> diceList = new ArrayList<Dice>();
-
-
-    public int count(List<Integer> dicesIntList, int whatToCount) {
-        if (dicesIntList.contains(whatToCount)) {
-            int occurrences = diceFrequency(dicesIntList, whatToCount);
-            return occurrences * whatToCount;
-        } else {
-            return 0;
-        }
-
-    }
-
-    int countThreeOfAKind(List<Integer> dicesIntList) {
-        if (diceFrequency(dicesIntList, 1) >= 3 || diceFrequency(dicesIntList, 2) >= 3 || diceFrequency(dicesIntList, 3) >= 3 ||
-                diceFrequency(dicesIntList, 4) >= 3 || diceFrequency(dicesIntList, 5) >= 3 || diceFrequency(dicesIntList, 6) >= 3) {
-            int sum = dicesIntList.stream().mapToInt(Integer::intValue).sum();
-            return sum;
-        } else {
-            return 0;
-        }
-    }
-
-
-    int countFourOfAKind(List<Integer> dicesIntList) {
-        if (diceFrequency(dicesIntList, 1) >= 4 || diceFrequency(dicesIntList, 2) >= 4 || diceFrequency(dicesIntList, 3) >= 4 ||
-                diceFrequency(dicesIntList, 4) >= 4 || diceFrequency(dicesIntList, 5) >= 4 || diceFrequency(dicesIntList, 6) >= 4) {
-            int sum = dicesIntList.stream().mapToInt(Integer::intValue).sum();
-            return sum;
-        } else {
-            return 0;
-        }
-    }
-
-
-    int countFullHouse(List<Integer> dicesIntList) {
-        if (
-                ((diceFrequency(dicesIntList, 1) == 3)
-                        &&
-                        (diceFrequency(dicesIntList, 2) == 2 || diceFrequency(dicesIntList, 3) == 2 || diceFrequency(dicesIntList, 4) == 2 || diceFrequency(dicesIntList, 5) == 2 || diceFrequency(dicesIntList, 6) == 2))
-                        ||
-                        ((diceFrequency(dicesIntList, 2) == 3)
-                                &&
-                                (diceFrequency(dicesIntList, 1) == 2 || diceFrequency(dicesIntList, 3) == 2 || diceFrequency(dicesIntList, 4) == 2 || diceFrequency(dicesIntList, 5) == 2 || diceFrequency(dicesIntList, 6) == 2))
-                        ||
-                        ((diceFrequency(dicesIntList, 3) == 3)
-                                &&
-                                (diceFrequency(dicesIntList, 1) == 2 || diceFrequency(dicesIntList, 2) == 2 || diceFrequency(dicesIntList, 4) == 2 || diceFrequency(dicesIntList, 5) == 2 || diceFrequency(dicesIntList, 6) == 2))
-                        ||
-                        ((diceFrequency(dicesIntList, 4) == 3)
-                                &&
-                                (diceFrequency(dicesIntList, 1) == 2 || diceFrequency(dicesIntList, 2) == 2 || diceFrequency(dicesIntList, 3) == 2 || diceFrequency(dicesIntList, 5) == 2 || diceFrequency(dicesIntList, 6) == 2))
-                        ||
-                        ((diceFrequency(dicesIntList, 5) == 3)
-                                &&
-                                (diceFrequency(dicesIntList, 1) == 2 || diceFrequency(dicesIntList, 2) == 2 || diceFrequency(dicesIntList, 3) == 2 || diceFrequency(dicesIntList, 4) == 2 || diceFrequency(dicesIntList, 6) == 2))
-                        ||
-                        ((diceFrequency(dicesIntList, 6) == 3)
-                                &&
-                                (diceFrequency(dicesIntList, 1) == 2 || diceFrequency(dicesIntList, 2) == 2 || diceFrequency(dicesIntList, 3) == 2 || diceFrequency(dicesIntList, 4) == 2 || diceFrequency(dicesIntList, 5) == 2))
-        ) {
-            return 25;
-        } else {
-            return 0;
-        }
-    }
-
-    int countSmallStraight(List<Integer> dicesIntList) {
-        if (
-                (dicesIntList.contains(1) && dicesIntList.contains(2) && dicesIntList.contains(3) && dicesIntList.contains(4))
-                        ||
-                        (dicesIntList.contains(2) && dicesIntList.contains(3) && dicesIntList.contains(4) && dicesIntList.contains(5))
-                        ||
-                        (dicesIntList.contains(3) && dicesIntList.contains(4) && dicesIntList.contains(5) && dicesIntList.contains(6))
-        ) {
-            return 30;
-        } else {
-            return 0;
-        }
-    }
-
-
-    int countLargeStraight(List<Integer> dicesIntList) {
-        if (
-                (dicesIntList.contains(1) && dicesIntList.contains(2) && dicesIntList.contains(3) && dicesIntList.contains(4) && dicesIntList.contains(5))
-                        ||
-                        (dicesIntList.contains(2) && dicesIntList.contains(3) && dicesIntList.contains(4) && dicesIntList.contains(5) && dicesIntList.contains(6))
-        ) {
-            return 40;
-        } else {
-            return 0;
-        }
-    }
-
-
-    int count5dice(List<Integer> dicesIntList) {
-        if (diceFrequency(dicesIntList, 1) >= 5 || diceFrequency(dicesIntList, 2) >= 5 || diceFrequency(dicesIntList, 3) >= 5 ||
-                diceFrequency(dicesIntList, 4) >= 5 || diceFrequency(dicesIntList, 5) >= 5 || diceFrequency(dicesIntList, 6) >= 5) {
-            return 50;
-        } else {
-            return 0;
-        }
-    }
-
-    int countChance(List<Integer> dicesIntList) {
-        int sum = dicesIntList.stream().mapToInt(Integer::intValue).sum();
-        return sum;
-    }
-
-    int topScore(HashMap<Score, Integer> result) {
-        int countTopScore = ((result.get(aces)) + (result.get(twos)) + (result.get(threes)) + (result.get(fours)) + (result.get(fives)) + (result.get(sixes)) + (result.get(bonusPoints)));
-        return countTopScore;
-    }
-
-    int bottomScore(HashMap<Score, Integer> result) {
-        int countBottomScore = ((result.get(threeOfaAKind)) + (result.get(fourOfaAKind)) + (result.get(fullHouse)) + (result.get(smallStraight)) + (result.get(largeStraight)) + (result.get(fiveDice)) + (result.get(chance)));
-        return countBottomScore;
-    }
-
-    int totalScore(HashMap<Score, Integer> result) {
-        return result.values().stream().mapToInt(Integer::intValue).sum();
-        //return topScore(result)+bottomScore(result);
-    }
 
 
 }

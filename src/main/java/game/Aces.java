@@ -17,11 +17,11 @@ public class Aces implements ScoreInterface {
 
     @Override
     public void acceptanceButton(User user) {
-
-        user.userResult.replace(user.aces, user.count(user.dicesIntList, 1));
-        user.userPossibilities.replace(user.aces, false);
-        user.userTurn = false;
-        pointCounter.clearTheTemporaryPoints(user);
+//
+//        user.userResult.replace(user.aces, user.count(user.dicesIntList, 1));
+//        user.userPossibilities.replace(user.aces, false);
+//        user.userTurn = false;
+//        pointCounter.clearTheTemporaryPoints(user);
 
     }
 }

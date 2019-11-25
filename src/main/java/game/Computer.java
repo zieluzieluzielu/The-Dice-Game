@@ -25,7 +25,11 @@ public class Computer {
     public HashMap<Score, Integer> computerResult = new HashMap<>(); //(osobna klasa?)
     public ArrayList<Score> computerTemporarResult = new ArrayList<>(); //(osobna klasa?)
 
-    Random random = new Random();
+    Random random;
+
+    public Computer(Random random) {
+        this.random = random;
+    }
 
     public int randomDice() {
         return random.nextInt(6) + 1;

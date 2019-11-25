@@ -13,13 +13,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class TheDiceGame extends Application {/*
+public class TheDiceGame {
+    /*
 
     private Image imageback = new Image("bckgrnd.jpg");
     private FlowPane dices = new FlowPane(Orientation.HORIZONTAL);*/
 
-    @Override
-    public void start(Stage primaryStage) {
+    //@Override
+    //public void start(Stage primaryStage) {
 
         /*User user = new User();
         User computer = new User();
@@ -140,10 +141,11 @@ public class TheDiceGame extends Application {/*
         user.userTurn = true;
         */
 
-            }
+     //       }
 
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    //public static void main(String[] args) {
+    //    launch(args);
+    //}
+
 }
