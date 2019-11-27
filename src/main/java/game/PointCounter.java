@@ -24,11 +24,10 @@ public class PointCounter {
     Score topScore = new Score("Top Score");
     Score bottomScore = new Score("Bottom Score");
 
-    ArrayList<Integer> dicesIntList = new ArrayList<Integer>();
     ArrayList<Dice> diceList = new ArrayList<Dice>();
 
     HashMap<Score, Boolean> userPossibilities = new HashMap<>();
-    HashMap<Score, Integer> userResult = new HashMap<>();
+    public HashMap<Score, Integer> userResult = new HashMap<>();
     HashMap<Score, Integer> userTemporarResult = new HashMap<>();
 
     SingleDiceScore diceScore1 = new SingleDiceScore(1);
