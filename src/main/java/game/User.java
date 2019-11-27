@@ -18,12 +18,7 @@ public class User {
 
     private ArrayList<Dice> diceList = new ArrayList<>();
 
-    private ArrayList<Integer> dicesIntList = new ArrayList<>();
-
-    public ArrayList<Integer> getDicesIntList() {
-        return dicesIntList;
-    }
-    public ArrayList<Dice> getDicesList() {
+    public ArrayList<Dice> getDiceList() {
         return diceList;
     }
 
@@ -37,32 +32,24 @@ public class User {
         diceList.add(new Dice(random.nextInt(6)+1 , false));
     }
 
-
-    public ArrayList<Integer> mapDices(ArrayList<Dice> list) {
-        ArrayList<Integer> dicesIntList = new ArrayList<Integer>();
-            for (Dice dice : list) {
-                dicesIntList.add(dice.getValue());
-            }
-        return dicesIntList;
+    //docelowy:
+    public void userThrow(List<Dice> diceList) {
+        for (int n = 1; n <= diceList.size(); n++) {
+            rollTheDice(diceList.get(n));
+        }
     }
 
-
-    public ArrayList<Dice> getDiceList() {
-        return diceList;
+    public int rollTheDice(Dice dice) {
+        if (!dice.getSelected()) {
+            return singleDiceRoll();
+        } else return dice.getValue();
     }
 
     public int singleDiceRoll() {
         return random.nextInt(6) + 1;
     }
 
-    public int rollTheDice(Dice dice) {
-        if (!dice.getSelected()) {
-            return singleDiceRoll();
-        } else return dice.value;
-    }
-
-
-    public int sumofDices(List<Dice> diceList) {
+    public int sumOfDices(List<Dice> diceList) {
         int sum = 0;
         for (int n = 0; n < diceList.size(); n++) {
             sum += diceList.get(n).getValue();
@@ -70,12 +57,6 @@ public class User {
         return sum;
     }
 
-    //docelowy:
-    public void userThrow(List<Dice> diceList) {
-        for (int n = 1; n <= diceList.size(); n++) {
-            rollTheDice(diceList.get(n));
-        }
-    }
 
 
     int totalScore(HashMap<Score, Integer> result) {

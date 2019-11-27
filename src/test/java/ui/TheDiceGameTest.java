@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -15,27 +16,161 @@ public class TheDiceGameTest {
     @Test
     public void diceGameScenario() {
 
-        //GIVEN
-        //tworzene mocka
         Random randomMock = mock(Random.class);
         User user = new User(randomMock);
         //Computer computer = new Computer(randomMock);
         PointCounter pointCounter = new PointCounter();
         //ComputerPointCounter computerPointCounter = new ComputerPointCounter();
-        //wstrzykniecie mocka
+
+        //GIVEN
         when(randomMock.nextInt(6)).thenReturn(0);
-
-
         //WHEN
         user.userThrow1();
-        int userAcesResult = pointCounter.count(user.getDicesIntList(),new SingleDiceScore(1));//sprawdzic dlaczego nie przelicza
-        int userAcesResult2 = user.sumofDices(user.getDiceList());
+        int userAcesResult = pointCounter.count(user.getDiceList(),new SingleDiceScore(1));
+        System.out.println(userAcesResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
         //THEN
         Assert.assertEquals(5, userAcesResult);
 
-        //a moze zrobic interfejs Score w ktorym kazda punktacja by zawierala wlasna metode obliczania punktow? (bylo by dodatkowo 13+ klas) -> tak
 
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(1);
         //WHEN
+        user.userThrow1();
+        int userTwosResult = pointCounter.count(user.getDiceList(),new SingleDiceScore(2));
+        System.out.println(userTwosResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(10, userTwosResult);
+
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(2);
+        //WHEN
+        user.userThrow1();
+        int userThreesResult = pointCounter.count(user.getDiceList(),new SingleDiceScore(3));
+        System.out.println(userThreesResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(15, userThreesResult);
+
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(3);
+        //WHEN
+        user.userThrow1();
+        int userFoursResult = pointCounter.count(user.getDiceList(),new SingleDiceScore(4));
+        System.out.println(userFoursResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(20, userFoursResult);
+
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(4);
+        //WHEN
+        user.userThrow1();
+        int userFivesResult = pointCounter.count(user.getDiceList(),new SingleDiceScore(5));
+        System.out.println(userFivesResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(25, userFivesResult);
+
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(5);
+        //WHEN
+        user.userThrow1();
+        int userSixesResult = pointCounter.count(user.getDiceList(),new SingleDiceScore(6));
+        System.out.println(userSixesResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(30, userSixesResult);
+
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(5);
+        //WHEN
+        user.userThrow1();
+        int userThreeOfAKindResult = pointCounter.countThreeOfAKind(user.getDiceList());
+        System.out.println(userThreeOfAKindResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(30, userThreeOfAKindResult);
+
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(2);
+        //WHEN
+        user.userThrow1();
+        int userFourOfAKindResult = pointCounter.countFourOfAKind(user.getDiceList());
+        System.out.println(userThreeOfAKindResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(15, userFourOfAKindResult);
+
+        //GIVEN
+        user.getDiceList().clear();
+        user.getDiceList().add(new Dice(3, false));
+        user.getDiceList().add(new Dice(3, false));
+        user.getDiceList().add(new Dice(2, false));
+        user.getDiceList().add(new Dice(2, false));
+        user.getDiceList().add(new Dice(2, false));
+        //WHEN
+        //user.userThrow1();
+        int userFullHouse = pointCounter.countFullHouse(user.getDiceList());
+        System.out.println(userThreeOfAKindResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(25, userFullHouse);
+
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(0);
+        //WHEN
+        user.userThrow1();
+        int userSmallStraightResult = pointCounter.countSmallStraight(user.getDiceList());
+        System.out.println(userSmallStraightResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(0, userSmallStraightResult);
+
+
+        //GIVEN
+        user.getDiceList().clear();
+        user.getDiceList().add(new Dice(2, false));
+        user.getDiceList().add(new Dice(3, false));
+        user.getDiceList().add(new Dice(4, false));
+        user.getDiceList().add(new Dice(5, false));
+        user.getDiceList().add(new Dice(6, false));
+        //WHEN
+        //user.userThrow1();
+        int userLargeStraightResult = pointCounter.countLargeStraight(user.getDiceList());
+        System.out.println(userLargeStraightResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(40, userLargeStraightResult);
+
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(0);
+        //WHEN
+        user.userThrow1();
+        int user5DiceResult = pointCounter.count5dice(user.getDiceList());
+        System.out.println(user5DiceResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(50, user5DiceResult);
+
+        //GIVEN
+        when(randomMock.nextInt(6)).thenReturn(1);
+        //WHEN
+        user.userThrow1();
+        int userChanceResult = pointCounter.countChance(user.getDiceList());
+        System.out.println(userChanceResult);
+        System.out.println(user.getDiceList().stream().map(i -> i.getValue()).collect(Collectors.toList()));
+        //THEN
+        Assert.assertEquals(10, userChanceResult);
+
+
+        System.out.println(userChanceResult);
+
+
+
+
+        //Zrobic interfejs Score w ktorym kazda punktacja by zawierala wlasna metode obliczania punktow? (bylo by dodatkowo 13+ klas) -> tak
 
 
         //[ROUND 1]:
