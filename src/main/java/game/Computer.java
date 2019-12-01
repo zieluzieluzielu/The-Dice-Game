@@ -21,11 +21,75 @@ public class Computer {
     Score chance = new Score("Chance");
     Score bonusPoints = new Score("Bonus");
 
-    public HashMap<Score, Boolean> computerPossibilities = new HashMap<>(); //(osobna klasa?)
-    public HashMap<Score, Integer> computerResult = new HashMap<>(); //(osobna klasa?)
-    public ArrayList<Score> computerTemporarResult = new ArrayList<>(); //(osobna klasa?)
+    public void scoreTable() {
+        //bonusCounter();
+        System.out.println("COMPUTER SCORE:");
+        System.out.println("Aces: "+getAces());
+    }
+
+    public Score getAces() {
+        return aces;
+    }
+
+    public Score getTwos() {
+        return twos;
+    }
+
+    public Score getThrees() {
+        return threes;
+    }
+
+    public Score getFours() {
+        return fours;
+    }
+
+    public Score getFives() {
+        return fives;
+    }
+
+    public Score getSixes() {
+        return sixes;
+    }
+
+    public Score getThreeOfaAKind() {
+        return threeOfaAKind;
+    }
+
+    public Score getFourOfaAKind() {
+        return fourOfaAKind;
+    }
+
+    public Score getFullHouse() {
+        return fullHouse;
+    }
+
+    public Score getSmallStraight() {
+        return smallStraight;
+    }
+
+    public Score getLargeStraight() {
+        return largeStraight;
+    }
+
+    public Score getFiveDice() {
+        return fiveDice;
+    }
+
+    public Score getChance() {
+        return chance;
+    }
+
+    public Score getBonusPoints() {
+        return bonusPoints;
+    }
+
+
+    public HashMap<Score, Boolean> computerPossibilities = new HashMap<>();
+    public HashMap<Score, Integer> computerResult = new HashMap<>();
+    public ArrayList<Score> computerTemporarResult = new ArrayList<>();
 
     Random random;
+
 
     public Computer(Random random) {
         this.random = random;
@@ -81,6 +145,9 @@ public class Computer {
 
     public int countFullHouse() {
         List<Integer> options = new ArrayList<>();
+        options.add(25);
+        options.add(0);
+        options.add(25);
         options.add(0);
         options.add(25);
 
@@ -92,7 +159,9 @@ public class Computer {
         List<Integer> options = new ArrayList<>();
         options.add(0);
         options.add(30);
-
+        options.add(0);
+        options.add(30);
+        options.add(30);
         int value = options.get(random.nextInt(options.size()));
         return value;
     }
@@ -102,6 +171,8 @@ public class Computer {
         options.add(0);
         options.add(40);
         options.add(0);
+        options.add(0);
+        options.add(40);
 
         int value = options.get(random.nextInt(options.size()));
         return value;
@@ -112,7 +183,8 @@ public class Computer {
         options.add(0);
         options.add(50);
         options.add(0);
-
+        options.add(50);
+        options.add(0);
         int value = options.get(random.nextInt(options.size()));
         return value;
     }

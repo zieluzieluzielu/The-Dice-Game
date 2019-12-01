@@ -18,6 +18,12 @@ public class Dice {
         return selected;
     }
 
-
+    @Override
+    public String toString() {
+        return "Dice{" +
+                "value=" + value +
+                ", selected=" + selected +
+                '}';
+    }
 }
 

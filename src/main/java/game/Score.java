@@ -21,4 +21,11 @@ public class Score {
     public int hashCode() {
         return Score.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Score{" +
+                "Score='" + Score + '\'' +
+                '}';
+    }
 }

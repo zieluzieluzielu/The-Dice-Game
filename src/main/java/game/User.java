@@ -1,53 +1,65 @@
 package game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class User {
 
-    Random random;
+    private final RandomDicesProvider dicesProvider;
 
-    public User(Random random) {
-        this.random = random;
+    public User(RandomDicesProvider dicesProvider) {
+        this.dicesProvider = dicesProvider;
     }
 
     public boolean userTurn;
 
-    private ArrayList<Dice> diceList = new ArrayList<>();
+    private List<Dice> diceList = new ArrayList<>();
+    private List<Dice> dicesToRethrow = new ArrayList<>();
 
-    public ArrayList<Dice> getDiceList() {
+    public List<Dice> getDiceList() {
         return diceList;
     }
 
-    //na potrzeby testow:
+    public List<Dice> getDicesToRethrow() {
+        return dicesToRethrow;
+    }
     public void userThrow1() {
-        diceList.clear();
-        diceList.add(new Dice(random.nextInt(6)+1 , false));
-        diceList.add(new Dice(random.nextInt(6)+1 , false));
-        diceList.add(new Dice(random.nextInt(6)+1 , false));
-        diceList.add(new Dice(random.nextInt(6)+1 , false));
-        diceList.add(new Dice(random.nextInt(6)+1 , false));
+        this.diceList = dicesProvider.get();
     }
 
-    //docelowy:
-    public void userThrow(List<Dice> diceList) {
-        for (int n = 1; n <= diceList.size(); n++) {
-            rollTheDice(diceList.get(n));
-        }
+    public void reThrow() {
+       dicesToRethrow
+                .stream()
+                .map(dice -> dicesProvider.getSingle())
+                .forEach(newDice -> diceList.add(newDice));
+        System.out.println("dices were rethrowed");
+        dicesToRethrow.clear();
     }
 
-    public int rollTheDice(Dice dice) {
-        if (!dice.getSelected()) {
-            return singleDiceRoll();
-        } else return dice.getValue();
-    }
 
-    public int singleDiceRoll() {
-        return random.nextInt(6) + 1;
-    }
+    //docelowy (stara wersja)
+//    public void userThrow(List<Dice> diceList) {
+//        for (int n = 1; n <= diceList.size(); n++) {
+//            rollTheDice(diceList.get(n));
+//        }
+//    }
+//
+//    public int rollTheDice(Dice dice) {
+//        if (!dice.getSelected()) {
+//            return singleDiceRoll();
+//        } else return dice.getValue();
+//    }
+//
+//    public int singleDiceRoll() {
+//        return random.nextInt(6) + 1;
+//    }
+//    public void reThrowDices(List<Dice> diceList) {
+//        for (int n = 1; n <= diceList.size(); n++) {
+//            rollTheDice(diceList.get(n));
+//        }
+//    }
+
 
     public int sumOfDices(List<Dice> diceList) {
         int sum = 0;
@@ -64,15 +76,10 @@ public class User {
         //return topScore(result)+bottomScore(result);
     }
 
-    public void reThrowDices(List<Dice> diceList) {
-        for (int n = 1; n <= diceList.size(); n++) {
-            rollTheDice(diceList.get(n));
-        }
-    }
-
     //mozliwosc wybrania ponizszej metody przez button -> tylko gdy kosc nie zostala wczesniej wybrana
     public boolean selectDice(Dice dice) {
         if (!dice.selected) {
+            dicesToRethrow.add(dice);
             return dice.selected = true;
         } else {
             System.out.println("Dice was already selected");

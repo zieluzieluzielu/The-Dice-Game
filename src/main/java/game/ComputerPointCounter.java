@@ -1,12 +1,98 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public class ComputerPointCounter {
 
-    ComputerDrawResult computerDrawResult = new ComputerDrawResult();
+    Random random;
 
-    public int roundNr = 1;
+    public ComputerPointCounter(Random random) {
+        this.random = random;
+    }
+
+    public void initialize() {
+        scoreMap();
+        scorePossibilities();
+        scoreTemporarMap();
+    }
+
+    public HashMap<Score, Boolean> computerPossibilities = new HashMap<>();
+    public HashMap<Score, Integer> computerResult = new HashMap<>();
+    public ArrayList<Score> computerTemporarResult = new ArrayList<>();
+
+    public HashMap<Score, Integer> scoreMap() {
+        computerResult.put(aces, 0);
+        computerResult.put(twos, 0);
+        computerResult.put(threes, 0);
+        computerResult.put(fours, 0);
+        computerResult.put(fives, 0);
+        computerResult.put(sixes, 0);
+        computerResult.put(threeOfaAKind, 0);
+        computerResult.put(fourOfaAKind, 0);
+        computerResult.put(fullHouse, 0);
+        computerResult.put(smallStraight, 0);
+        computerResult.put(largeStraight, 0);
+        computerResult.put(fiveDice, 0);
+        computerResult.put(chance, 0);
+        computerResult.put(bonusPoints, 0);
+        return computerResult;
+    }
+
+
+    public ArrayList<Score> scoreTemporarMap() {
+        computerTemporarResult.add(aces);
+        computerTemporarResult.add(twos);
+        computerTemporarResult.add(threes);
+        computerTemporarResult.add(fours);
+        computerTemporarResult.add(fives);
+        computerTemporarResult.add(sixes);
+        computerTemporarResult.add(threeOfaAKind);
+        computerTemporarResult.add(fourOfaAKind);
+        computerTemporarResult.add(fullHouse);
+        computerTemporarResult.add(smallStraight);
+        computerTemporarResult.add(largeStraight);
+        computerTemporarResult.add(fiveDice);
+        computerTemporarResult.add(chance);
+        computerTemporarResult.add(bonusPoints);
+        return computerTemporarResult;
+    }
+
+
+    public HashMap<Score, Boolean> scorePossibilities() {
+        computerPossibilities.put(aces, true);
+        computerPossibilities.put(twos, true);
+        computerPossibilities.put(threes, true);
+        computerPossibilities.put(fours, true);
+        computerPossibilities.put(fives, true);
+        computerPossibilities.put(sixes, true);
+        computerPossibilities.put(threeOfaAKind, true);
+        computerPossibilities.put(fourOfaAKind, true);
+        computerPossibilities.put(fullHouse, true);
+        computerPossibilities.put(smallStraight, true);
+        computerPossibilities.put(largeStraight, true);
+        computerPossibilities.put(fiveDice, true);
+        computerPossibilities.put(chance, true);
+        computerPossibilities.put(bonusPoints, true);
+        return computerPossibilities;
+    }
+
+    public HashMap<Score, Boolean> getComputerPossibilities() {
+        return computerPossibilities;
+    }
+
+    public HashMap<Score, Integer> getComputerResult() {
+        return computerResult;
+    }
+
+    public ArrayList<Score> getComputerTemporarResult() {
+        return computerTemporarResult;
+    }
+
+    public int roundNr = 0;
+
     Score aces = new Score("Aces");
     Score twos = new Score("Twos");
     Score threes = new Score("Threes");
@@ -26,139 +112,324 @@ public class ComputerPointCounter {
     Score topScore = new Score("Top Score");
     Score bottomScore = new Score("Bottom Score");
 
-    Random random = new Random();
-
-
-    public int tableResult(Score score, Computer computer) {
-
-        if (!computer.computerPossibilities.get(score)) {
-            return computer.computerResult.get(score);
-        } else
-            return 0;
+    public int getRoundNr() {
+        return roundNr;
     }
 
-    public void computerPossibleTurn(Computer computer, User user) {
+    public void scoreTable() {
+        System.out.println("COMPUTER SCORE:");
+        System.out.println("Aces: " + getComputerResult().get(getAces()));
+        System.out.println("Twos: " + getComputerResult().get(getTwos()));
+        System.out.println("Threes: " + getComputerResult().get(getThrees()));
+        System.out.println("Fours: " + getComputerResult().get(getFours()));
+        System.out.println("Fives: " + getComputerResult().get(getFives()));
+        System.out.println("Sixes: " + getComputerResult().get(getSixes()));
+        System.out.println("Top score: " + topScore(getComputerResult()));
+        System.out.println("Bonus: " + getComputerResult().get(getBonusPoints()));
+        System.out.println("");
+
+        System.out.println("Three Of A Kind: " + getComputerResult().get(getThreeOfaAKind()));
+        System.out.println("Four Of A Kind: " + getComputerResult().get(getFourOfaAKind()));
+        System.out.println("Full House: " + getComputerResult().get(getFullHouse()));
+        System.out.println("Small Straight: " + getComputerResult().get(getSmallStraight()));
+        System.out.println("Large Straight: " + getComputerResult().get(getLargeStraight()));
+        System.out.println("Chance: " + getComputerResult().get(getChance()));
+        System.out.println("5 dice: " + getComputerResult().get(getFiveDice()));
+
+        System.out.println("Bottom score: " + bottomScore(getComputerResult()));
+        System.out.println("Total score: " + totalScore(getComputerResult()));
+        System.out.println("\n");
+    }
+
+    public int drawSize() {
+        return random.nextInt(computerTemporarResult.size());
+    }
+
+    public Score draw() {
+        return computerTemporarResult.get(drawSize());
+    }
+
+    public Score getAces() {
+        return aces;
+    }
+
+    public Score getTwos() {
+        return twos;
+    }
+
+    public Score getThrees() {
+        return threes;
+    }
+
+    public Score getFours() {
+        return fours;
+    }
+
+    public Score getFives() {
+        return fives;
+    }
+
+    public Score getSixes() {
+        return sixes;
+    }
+
+    public Score getThreeOfaAKind() {
+        return threeOfaAKind;
+    }
+
+    public Score getFourOfaAKind() {
+        return fourOfaAKind;
+    }
+
+    public Score getFullHouse() {
+        return fullHouse;
+    }
+
+    public Score getSmallStraight() {
+        return smallStraight;
+    }
+
+    public Score getLargeStraight() {
+        return largeStraight;
+    }
+
+    public Score getFiveDice() {
+        return fiveDice;
+    }
+
+    public Score getChance() {
+        return chance;
+    }
+
+    public Score getBonusPoints() {
+        return bonusPoints;
+    }
+
+
+    public int randomDice() {
+        return random.nextInt(6) + 1;
+    }
+
+    public int randomDiceAmount() {
+        return random.nextInt(5) + 1;
+    }
+
+    public int countAces() {
+        int value = randomDiceAmount();  //1-2-3-4-5
+        return value;
+    }
+
+    public int countTwos() {
+        int value = randomDiceAmount() * 2;  //2-4-6-8-10
+        return value;
+    }
+
+    public int countThrees() {
+        int value = randomDiceAmount() * 3;  //3-6-9-12-15
+        return value;
+    }
+
+    public int countFours() {
+        int value = randomDiceAmount() * 4;  //4-8-12-16-20
+        return value;
+    }
+
+    public int countFives() {
+        int value = randomDiceAmount() * 5;  //5-10-15-20-25
+        return value;
+    }
+
+    public int countSixes() {
+        int value = randomDiceAmount() * 6;  //6-12-18-24-30-36
+        return value;
+    }
+
+    public int countThreeOfAKind() {
+        int value = (randomDice() * 3) + (randomDice() * 2);
+        return value;
+    }
+
+    public int countFourOfAKind() {
+        int value = (randomDice() * 4) + randomDice();
+        return value;
+    }
+
+    public int countFullHouse() {
+        List<Integer> options = new ArrayList<>();
+        options.add(25);
+        options.add(0);
+        options.add(25);
+        options.add(0);
+        options.add(25);
+
+        int value = options.get(random.nextInt(options.size()));
+        return value;
+    }
+
+    public int countSmallStraight() {
+        List<Integer> options = new ArrayList<>();
+        options.add(0);
+        options.add(30);
+        options.add(0);
+        options.add(30);
+        options.add(30);
+        int value = options.get(random.nextInt(options.size()));
+        return value;
+    }
+
+    public int countLargeStraight() {
+        List<Integer> options = new ArrayList<>();
+        options.add(0);
+        options.add(40);
+        options.add(0);
+        options.add(0);
+        options.add(40);
+
+        int value = options.get(random.nextInt(options.size()));
+        return value;
+    }
+
+    public int count5Dice() {
+        List<Integer> options = new ArrayList<>();
+        options.add(0);
+        options.add(50);
+        options.add(0);
+        options.add(50);
+        options.add(0);
+        int value = options.get(random.nextInt(options.size()));
+        return value;
+    }
+
+    public int countChance() {
+        int value = randomDice() + randomDice() + randomDice() + randomDice() + randomDice();
+        return value;
+    }
+
+    int topScore(HashMap<Score, Integer> result) {
+        int countTopScore = ((result.get(aces)) + (result.get(twos)) + (result.get(threes)) + (result.get(fours)) + (result.get(fives)) + (result.get(sixes)));
+        return countTopScore;
+    }
+
+
+    int bottomScore(HashMap<Score, Integer> result) {
+        int countBottomScore = ((result.get(threeOfaAKind)) + (result.get(fourOfaAKind)) + (result.get(fullHouse)) + (result.get(smallStraight)) + (result.get(largeStraight)) + (result.get(fiveDice)) + (result.get(chance)));
+        return countBottomScore;
+    }
+
+    public int totalScore(HashMap<Score, Integer> result) {
+        return result.values().stream().mapToInt(Integer::intValue).sum();
+        //return topScore(result)+bottomScore(result);
+    }
+
+    public void computerPossibleTurn(User user) {
         if (!user.userTurn) {
 
-            if (!computer.computerPossibilities.get(aces) && computer.computerTemporarResult.contains(aces)) {
-                computer.computerTemporarResult.remove(aces);
+            if (!computerPossibilities.get(aces) && computerTemporarResult.contains(aces)) {
+                computerTemporarResult.remove(aces);
             }
-            if (!computer.computerPossibilities.get(twos) && computer.computerTemporarResult.contains(twos)) {
-                computer.computerTemporarResult.remove(twos);
+            if (!computerPossibilities.get(twos) && computerTemporarResult.contains(twos)) {
+                computerTemporarResult.remove(twos);
             }
-            if (!computer.computerPossibilities.get(threes) && computer.computerTemporarResult.contains(threes)) {
-                computer.computerTemporarResult.remove(threes);
+            if (!computerPossibilities.get(threes) && computerTemporarResult.contains(threes)) {
+                computerTemporarResult.remove(threes);
             }
-            if (!computer.computerPossibilities.get(fours) && computer.computerTemporarResult.contains(fours)) {
-                computer.computerTemporarResult.remove(fours);
+            if (!computerPossibilities.get(fours) && computerTemporarResult.contains(fours)) {
+                computerTemporarResult.remove(fours);
             }
-            if (!computer.computerPossibilities.get(fives) && computer.computerTemporarResult.contains(fives)) {
-                computer.computerTemporarResult.remove(fives);
+            if (!computerPossibilities.get(fives) && computerTemporarResult.contains(fives)) {
+                computerTemporarResult.remove(fives);
             }
-            if (!computer.computerPossibilities.get(sixes) && computer.computerTemporarResult.contains(sixes)) {
-                computer.computerTemporarResult.remove(sixes);
+            if (!computerPossibilities.get(sixes) && computerTemporarResult.contains(sixes)) {
+                computerTemporarResult.remove(sixes);
             }
-            if (!computer.computerPossibilities.get(threeOfaAKind) && computer.computerTemporarResult.contains(threeOfaAKind)) {
-                computer.computerTemporarResult.remove(threeOfaAKind);
+            if (!computerPossibilities.get(threeOfaAKind) && computerTemporarResult.contains(threeOfaAKind)) {
+                computerTemporarResult.remove(threeOfaAKind);
             }
-            if (!computer.computerPossibilities.get(fourOfaAKind) && computer.computerTemporarResult.contains(fourOfaAKind)) {
-                computer.computerTemporarResult.remove(fourOfaAKind);
+            if (!computerPossibilities.get(fourOfaAKind) && computerTemporarResult.contains(fourOfaAKind)) {
+                computerTemporarResult.remove(fourOfaAKind);
             }
-            if (!computer.computerPossibilities.get(fullHouse) && computer.computerTemporarResult.contains(fullHouse)) {
-                computer.computerTemporarResult.remove(fullHouse);
+            if (!computerPossibilities.get(fullHouse) && computerTemporarResult.contains(fullHouse)) {
+                computerTemporarResult.remove(fullHouse);
             }
-            if (!computer.computerPossibilities.get(smallStraight) && computer.computerTemporarResult.contains(smallStraight)) {
-                computer.computerTemporarResult.remove(smallStraight);
+            if (!computerPossibilities.get(smallStraight) && computerTemporarResult.contains(smallStraight)) {
+                computerTemporarResult.remove(smallStraight);
             }
-            if (!computer.computerPossibilities.get(largeStraight) && computer.computerTemporarResult.contains(largeStraight)) {
-                computer.computerTemporarResult.remove(largeStraight);
+            if (!computerPossibilities.get(largeStraight) && computerTemporarResult.contains(largeStraight)) {
+                computerTemporarResult.remove(largeStraight);
             }
-            if (!computer.computerPossibilities.get(fiveDice) && computer.computerTemporarResult.contains(fiveDice)) {
-                computer.computerTemporarResult.remove(fiveDice);
+            if (!computerPossibilities.get(fiveDice) && computerTemporarResult.contains(fiveDice)) {
+                computerTemporarResult.remove(fiveDice);
             }
-            if (!computer.computerPossibilities.get(chance) && computer.computerTemporarResult.contains(chance)) {
-                computer.computerTemporarResult.remove(chance);
+            if (!computerPossibilities.get(chance) && computerTemporarResult.contains(chance)) {
+                computerTemporarResult.remove(chance);
+            }
+            if (!computerPossibilities.get(bonusPoints) && computerTemporarResult.contains(bonusPoints)) {
+                computerTemporarResult.remove(bonusPoints);
             }
         }
 
     }
 
-    public void computerTurn(Computer computer, User user) {
+    public void computerTurn(User user) {
         if (!user.userTurn) {
-            Score drawnResult = computerDrawResult.draw();
-            //Score drawnResult = computer.computerTemporarResult.get(random.nextInt(computer.computerTemporarResult.size()));
+            Score drawnResult = draw();
 
             if (drawnResult.equals(aces)) {
-                computer.computerResult.replace(aces, computer.countAces());
-                computer.computerPossibilities.replace(aces, false);
+                computerResult.replace(aces, countAces());
+                computerPossibilities.replace(aces, false);
             } else if (drawnResult.equals(twos)) {
-                computer.computerResult.replace(twos, computer.countTwos());
-                computer.computerPossibilities.replace(drawnResult, false);
+                computerResult.replace(twos, countTwos());
+                computerPossibilities.replace(drawnResult, false);
             } else if (drawnResult.equals(threes)) {
-                computer.computerResult.replace(threes, computer.countThrees());
-                computer.computerPossibilities.replace(threes, false);
+                computerResult.replace(threes, countThrees());
+                computerPossibilities.replace(threes, false);
             } else if (drawnResult.equals(fours)) {
-                computer.computerResult.replace(fours, computer.countFours());
-                computer.computerPossibilities.replace(fours, false);
+                computerResult.replace(fours, countFours());
+                computerPossibilities.replace(fours, false);
             } else if (drawnResult.equals(fives)) {
-                computer.computerResult.replace(fives, computer.countFives());
-                computer.computerPossibilities.replace(fives, false);
+                computerResult.replace(fives, countFives());
+                computerPossibilities.replace(fives, false);
             } else if (drawnResult.equals(sixes)) {
-                computer.computerResult.replace(sixes, computer.countSixes());
-                computer.computerPossibilities.replace(sixes, false);
+                computerResult.replace(sixes, countSixes());
+                computerPossibilities.replace(sixes, false);
             } else if (drawnResult.equals(threeOfaAKind)) {
-                computer.computerResult.replace(threeOfaAKind, computer.countThreeOfAKind());
-                computer.computerPossibilities.replace(threeOfaAKind, false);
+                computerResult.replace(threeOfaAKind, countThreeOfAKind());
+                computerPossibilities.replace(threeOfaAKind, false);
             } else if (drawnResult.equals(fourOfaAKind)) {
-                computer.computerResult.replace(fourOfaAKind, computer.countFourOfAKind());
-                computer.computerPossibilities.replace(fourOfaAKind, false);
+                computerResult.replace(fourOfaAKind, countFourOfAKind());
+                computerPossibilities.replace(fourOfaAKind, false);
             } else if (drawnResult.equals(fullHouse)) {
-                computer.computerResult.replace(fullHouse, computer.countFullHouse());
-                computer.computerPossibilities.replace(fullHouse, false);
+                computerResult.replace(fullHouse, countFullHouse());
+                computerPossibilities.replace(fullHouse, false);
             } else if (drawnResult.equals(smallStraight)) {
-                computer.computerResult.replace(smallStraight, computer.countSmallStraight());
-                computer.computerPossibilities.replace(smallStraight, false);
+                computerResult.replace(smallStraight, countSmallStraight());
+                computerPossibilities.replace(smallStraight, false);
             } else if (drawnResult.equals(largeStraight)) {
-                computer.computerResult.replace(largeStraight, computer.countLargeStraight());
-                computer.computerPossibilities.replace(largeStraight, false);
+                computerResult.replace(largeStraight, countLargeStraight());
+                computerPossibilities.replace(largeStraight, false);
             } else if (drawnResult.equals(fiveDice)) {
-                computer.computerResult.replace(fiveDice, computer.count5Dice());
-                computer.computerPossibilities.replace(fiveDice, false);
+                computerResult.replace(fiveDice, count5Dice());
+                computerPossibilities.replace(fiveDice, false);
             } else if (drawnResult.equals(chance)) {
-                computer.computerResult.replace(chance, computer.countChance());
-                computer.computerPossibilities.replace(chance, false);
+                computerResult.replace(chance, countChance());
+                computerPossibilities.replace(chance, false);
             }
 
-            if (computer.computerPossibilities.get(bonusPoints)) {
+            if (computerPossibilities.get(bonusPoints)) {
                 if
-                (((computer.computerResult.get(aces)) + (computer.computerResult.get(twos)) + (computer.computerResult.get(threes)) + (computer.computerResult.get(fours)) +
-                        (computer.computerResult.get(fives)) + (computer.computerResult.get(sixes))) >= 65) {
-                    computer.computerResult.replace(bonusPoints, 35);
-                    computer.computerPossibilities.replace(bonusPoints, false);
+                (((computerResult.get(aces)) + (computerResult.get(twos)) + (computerResult.get(threes)) + (computerResult.get(fours)) +
+                        (computerResult.get(fives)) + (computerResult.get(sixes))) >= 65) {
+                    computerResult.replace(bonusPoints, 35);
+                    computerPossibilities.replace(bonusPoints, false);
                 }
             }
 
-            computer.computerResult.replace(topScore, computer.topScore(computer.computerResult));
-            computer.computerResult.replace(bottomScore, computer.bottomScore(computer.computerResult));
+            computerResult.replace(topScore, topScore(computerResult));
+            computerResult.replace(bottomScore, bottomScore(computerResult));
 
             roundNr++;
         }
 
-    }
-
-    public int getBottomScore(Computer computer) {
-        int bottomScore = computer.bottomScore(computer.computerResult);
-        return bottomScore;
-    }
-
-    public int getTopScore(Computer computer) {
-        int topScore = computer.topScore(computer.computerResult);
-        return topScore;
-    }
-
-    public int getTotalScore(Computer computer) {
-        int totalScore = computer.totalScore(computer.computerResult);
-        return totalScore;
     }
 
 }

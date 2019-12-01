@@ -24,11 +24,181 @@ public class PointCounter {
     Score topScore = new Score("Top Score");
     Score bottomScore = new Score("Bottom Score");
 
-    ArrayList<Dice> diceList = new ArrayList<Dice>();
+    public void initialize() {
+        scoreMap();
+        scorePossibilities();
+        scoreTemporarMap();
+    }
 
-    HashMap<Score, Boolean> userPossibilities = new HashMap<>();
+    public HashMap<Score, Boolean> userPossibilities = new HashMap<>();
     public HashMap<Score, Integer> userResult = new HashMap<>();
-    HashMap<Score, Integer> userTemporarResult = new HashMap<>();
+    public HashMap<Score, Integer> userTemporarResult = new HashMap<>();
+
+    public HashMap<Score, Integer> scoreMap() {
+        userResult.put(aces, 0);
+        userResult.put(twos, 0);
+        userResult.put(threes, 0);
+        userResult.put(fours, 0);
+        userResult.put(fives, 0);
+        userResult.put(sixes, 0);
+        userResult.put(threeOfaAKind, 0);
+        userResult.put(fourOfaAKind, 0);
+        userResult.put(fullHouse, 0);
+        userResult.put(smallStraight, 0);
+        userResult.put(largeStraight, 0);
+        userResult.put(fiveDice, 0);
+        userResult.put(chance, 0);
+        userResult.put(bonusPoints, 0);
+        userResult.put(topScore, 0);
+        userResult.put(bottomScore, 0);
+        return userResult;
+    }
+
+
+    public HashMap<Score, Integer> scoreTemporarMap() {
+        userTemporarResult.put(aces, 0);
+        userTemporarResult.put(twos, 0);
+        userTemporarResult.put(threes, 0);
+        userTemporarResult.put(fours, 0);
+        userTemporarResult.put(fives, 0);
+        userTemporarResult.put(sixes, 0);
+        userTemporarResult.put(threeOfaAKind, 0);
+        userTemporarResult.put(fourOfaAKind, 0);
+        userTemporarResult.put(fullHouse, 0);
+        userTemporarResult.put(smallStraight, 0);
+        userTemporarResult.put(largeStraight, 0);
+        userTemporarResult.put(fiveDice, 0);
+        userTemporarResult.put(chance, 0);
+        userTemporarResult.put(bonusPoints, 0);
+        userTemporarResult.put(topScore, 0);
+        userTemporarResult.put(bottomScore, 0);
+        return userTemporarResult;
+    }
+
+
+    public HashMap<Score, Boolean> scorePossibilities() {
+        userPossibilities.put(aces, true);
+        userPossibilities.put(twos, true);
+        userPossibilities.put(threes, true);
+        userPossibilities.put(fours, true);
+        userPossibilities.put(fives, true);
+        userPossibilities.put(sixes, true);
+        userPossibilities.put(threeOfaAKind, true);
+        userPossibilities.put(fourOfaAKind, true);
+        userPossibilities.put(fullHouse, true);
+        userPossibilities.put(smallStraight, true);
+        userPossibilities.put(largeStraight, true);
+        userPossibilities.put(fiveDice, true);
+        userPossibilities.put(chance, true);
+        userPossibilities.put(bonusPoints, true);
+        userPossibilities.put(topScore, true);
+        userPossibilities.put(bottomScore, true);
+        return userPossibilities;
+    }
+
+    public HashMap<Score, Boolean> getUserPossibilities() {
+        return userPossibilities;
+    }
+
+    public HashMap<Score, Integer> getUserResult() {
+        return userResult;
+    }
+
+    public HashMap<Score, Integer> getUserTemporarResult() {
+        return userTemporarResult;
+    }
+
+    public Score getAces() {
+        return aces;
+    }
+
+    public Score getTwos() {
+        return twos;
+    }
+
+    public void scoreTable() {
+        bonusCounter();
+        System.out.println("USER SCORE:");
+        System.out.println("Aces: " + getUserResult().get(getAces()));
+        System.out.println("Twos: " + getUserResult().get(getTwos()));
+        System.out.println("Threes: " + getUserResult().get(getThrees()));
+        System.out.println("Fours: " + getUserResult().get(getFours()));
+        System.out.println("Fives: " + getUserResult().get(getFives()));
+        System.out.println("Sixes: " + getUserResult().get(getSixes()));
+        System.out.println("Top score: " + topScore(getUserResult()));
+        System.out.println("Bonus: " + getUserResult().get(getBonusPoints()));
+        System.out.println("");
+
+        System.out.println("Three Of A Kind: " + getUserResult().get(getThreeOfaAKind()));
+        System.out.println("Four Of A Kind: " + getUserResult().get(getFourOfaAKind()));
+        System.out.println("Full House: " + getUserResult().get(getFullHouse()));
+        System.out.println("Small Straight: " + getUserResult().get(getSmallStraight()));
+        System.out.println("Large Straight: " + getUserResult().get(getLargeStraight()));
+        System.out.println("Chance: " + getUserResult().get(getChance()));
+        System.out.println("5 dice: " + getUserResult().get(getFiveDice()));
+
+        System.out.println("Bottom score: " + bottomScore(getUserResult()));
+        System.out.println("Total score: " + totalScore(getUserResult()));
+        System.out.println("\n");
+    }
+
+    public void bonusCounter() {
+        if (getUserPossibilities().get(bonusPoints)) {
+            if (((getUserResult().get(aces)) + (getUserResult().get(twos)) + (getUserResult().get(threes)) + (getUserResult().get(fours)) +
+                    (getUserResult().get(fives)) + (getUserResult().get(sixes))) >= 65) {
+                getUserResult().replace(bonusPoints, 35);
+                getUserPossibilities().replace(bonusPoints, false);
+            }
+        }
+    }
+
+    public Score getThrees() {
+        return threes;
+    }
+
+    public Score getFours() {
+        return fours;
+    }
+
+    public Score getFives() {
+        return fives;
+    }
+
+    public Score getSixes() {
+        return sixes;
+    }
+
+    public Score getThreeOfaAKind() {
+        return threeOfaAKind;
+    }
+
+    public Score getFourOfaAKind() {
+        return fourOfaAKind;
+    }
+
+    public Score getFullHouse() {
+        return fullHouse;
+    }
+
+    public Score getSmallStraight() {
+        return smallStraight;
+    }
+
+    public Score getLargeStraight() {
+        return largeStraight;
+    }
+
+    public Score getFiveDice() {
+        return fiveDice;
+    }
+
+    public Score getChance() {
+        return chance;
+    }
+
+    public Score getBonusPoints() {
+        return bonusPoints;
+    }
 
     SingleDiceScore diceScore1 = new SingleDiceScore(1);
     SingleDiceScore diceScore2 = new SingleDiceScore(2);
@@ -36,9 +206,6 @@ public class PointCounter {
     SingleDiceScore diceScore4 = new SingleDiceScore(4);
     SingleDiceScore diceScore5 = new SingleDiceScore(5);
     SingleDiceScore diceScore6 = new SingleDiceScore(6);
-
-
-    //collect(Collectors.toList())
 
     int diceFrequency(List<Dice> diceList, SingleDiceScore singleDiceScore) {
         return Collections.frequency(diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()), singleDiceScore.getDiceScore());
@@ -153,7 +320,7 @@ public class PointCounter {
     }
 
     public int topScore(HashMap<Score, Integer> result) {
-        int countTopScore = ((result.get(aces)) + (result.get(twos)) + (result.get(threes)) + (result.get(fours)) + (result.get(fives)) + (result.get(sixes)) + (result.get(bonusPoints)));
+        int countTopScore = ((result.get(aces)) + (result.get(twos)) + (result.get(threes)) + (result.get(fours)) + (result.get(fives)) + (result.get(sixes)));
         return countTopScore;
     }
 
@@ -164,236 +331,220 @@ public class PointCounter {
 
     public int totalScore(HashMap<Score, Integer> result) {
         return result.values().stream().mapToInt(Integer::intValue).sum();
-        //return topScore(result)+bottomScore(result);
     }
 
-
-    public int tableResult(Score score, User user) {
-        if (!userPossibilities.get(score)) {
-            return userResult.get(score);
-        } else if (userPossibilities.get(score)) {
-            return userTemporarResult.get(score);
+    public int tableResult(Score score) {
+        if (!getUserPossibilities().get(score)) {
+            return getUserResult().get(score);
+        } else if (getUserPossibilities().get(score)) {
+            return getUserTemporarResult().get(score);
         } else {
             return 0;
         }
     }
 
-
     public void acesAcceptanceButton(User user) {
-        userResult.replace(aces, count(diceList, diceScore1));
-        userPossibilities.replace(aces, false);
+        getUserResult().replace(aces, count(user.getDiceList(), diceScore1));
+        getUserPossibilities().replace(aces, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
+        //System.out.println(userResult.get(aces));
     }
 
     public void twosAcceptanceButton(User user) {
-        userResult.replace(twos, count(diceList, diceScore2));
-        userPossibilities.replace(twos, false);
+        getUserResult().replace(twos, count(user.getDiceList(), diceScore2));
+        getUserPossibilities().replace(twos, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void threesAcceptanceButton(User user) {
-        userResult.replace(threes, count(diceList, diceScore3));
-        userPossibilities.replace(threes, false);
+        getUserResult().replace(threes, count(user.getDiceList(), diceScore3));
+        getUserPossibilities().replace(threes, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void foursAcceptanceButton(User user) {
-        userResult.replace(fours, count(diceList, diceScore4));
-        userPossibilities.replace(fours, false);
+        getUserResult().replace(fours, count(user.getDiceList(), diceScore4));
+        getUserPossibilities().replace(fours, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void fivesAcceptanceButton(User user) {
-        userResult.replace(fives, count(diceList, diceScore5));
-        userPossibilities.replace(fives, false);
+        getUserResult().replace(fives, count(user.getDiceList(), diceScore5));
+        getUserPossibilities().replace(fives, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void sixesAcceptanceButton(User user) {
-        userResult.replace(sixes, count(diceList, diceScore6));
-        userPossibilities.replace(sixes, false);
+        getUserResult().replace(sixes, count(user.getDiceList(), diceScore6));
+        getUserPossibilities().replace(sixes, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
+
     public void threeOfaAKindAcceptanceButton(User user) {
-        userResult.replace(threeOfaAKind, countThreeOfAKind(diceList));
-        userPossibilities.replace(threeOfaAKind, false);
+        getUserResult().replace(threeOfaAKind, countThreeOfAKind(user.getDiceList()));
+        getUserPossibilities().replace(threeOfaAKind, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void fourOfaAKindOfaAKindAcceptanceButton(User user) {
-        userResult.replace(fourOfaAKind, countFourOfAKind(diceList));
-        userPossibilities.replace(fourOfaAKind, false);
+        getUserResult().replace(fourOfaAKind, countFourOfAKind(user.getDiceList()));
+        getUserPossibilities().replace(fourOfaAKind, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void fullHouseAcceptanceButton(User user) {
-        userResult.replace(fullHouse, countFullHouse(diceList));
-        userPossibilities.replace(fullHouse, false);
+        getUserResult().replace(fullHouse, countFullHouse(user.getDiceList()));
+        getUserPossibilities().replace(fullHouse, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void smallStraightAcceptanceButton(User user) {
-        userResult.replace(smallStraight, countSmallStraight(diceList));
-        userPossibilities.replace(smallStraight, false);
+        getUserResult().replace(smallStraight, countSmallStraight(user.getDiceList()));
+        getUserPossibilities().replace(smallStraight, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void largeStraightAcceptanceButton(User user) {
-        userResult.replace(largeStraight, countLargeStraight(diceList));
-        userPossibilities.replace(largeStraight, false);
+        getUserResult().replace(largeStraight, countLargeStraight(user.getDiceList()));
+        getUserPossibilities().replace(largeStraight, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void fiveDiceAcceptanceButton(User user) {
-        userResult.replace(fiveDice, count5dice(diceList));
-        userPossibilities.replace(fiveDice, false);
+        getUserResult().replace(fiveDice, count5dice(user.getDiceList()));
+        getUserPossibilities().replace(fiveDice, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
 
     public void chanceAcceptanceButton(User user) {
-        userResult.replace(chance, countChance(diceList));
-        userPossibilities.replace(chance, false);
+        getUserResult().replace(chance, countChance(user.getDiceList()));
+        getUserPossibilities().replace(chance, false);
         user.userTurn = false;
-        clearTheTemporaryPoints(user);
+        clearTheTemporaryPoints();
     }
-
-
+    
     public void rollTheDicePointCounter(User user) {
 
-        if (userPossibilities.get(aces)) {
-            userTemporarResult.replace(aces, count(diceList, diceScore1));
+        if (getUserPossibilities().get(aces)) {
+            getUserTemporarResult().replace(aces, count(user.getDiceList(), diceScore1));
             //[BUTTON] zatwierdzający:
             acesAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(twos)) {
-            userTemporarResult.replace(twos, count(diceList, diceScore2));
+        if (getUserPossibilities().get(twos)) {
+            getUserTemporarResult().replace(twos, count(user.getDiceList(), diceScore2));
             //[BUTTON] zatwierdzający:
             twosAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(threes)) {
-            userTemporarResult.replace(threes, count(diceList, diceScore3));
+        if (getUserPossibilities().get(threes)) {
+            getUserTemporarResult().replace(threes, count(user.getDiceList(), diceScore3));
             //[BUTTON] zatwierdzający:
             threesAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(fours)) {
-            userTemporarResult.replace(fours, count(diceList, diceScore4));
+        if (getUserPossibilities().get(fours)) {
+            getUserTemporarResult().replace(fours, count(user.getDiceList(), diceScore4));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             foursAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(fives)) {
-            userTemporarResult.replace(fives, count(diceList, diceScore5));
+        if (getUserPossibilities().get(fives)) {
+            getUserTemporarResult().replace(fives, count(user.getDiceList(), diceScore5));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             fivesAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(sixes)) {
-            userTemporarResult.replace(sixes, count(diceList, diceScore6));
+        if (getUserPossibilities().get(sixes)) {
+            getUserTemporarResult().replace(sixes, count(user.getDiceList(), diceScore6));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             sixesAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(threeOfaAKind)) {
-            userTemporarResult.replace(threeOfaAKind, countThreeOfAKind(diceList));
+        if (getUserPossibilities().get(threeOfaAKind)) {
+            getUserTemporarResult().replace(threeOfaAKind, countThreeOfAKind(user.getDiceList()));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             threeOfaAKindAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(fourOfaAKind)) {
-            userTemporarResult.replace(fourOfaAKind, countFourOfAKind(diceList));
+        if (getUserPossibilities().get(fourOfaAKind)) {
+            getUserTemporarResult().replace(fourOfaAKind, countFourOfAKind(user.getDiceList()));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             fourOfaAKindOfaAKindAcceptanceButton(user);
         }
 
-        if (userPossibilities.get(fullHouse)) {
-            userTemporarResult.replace(fullHouse, countFullHouse(diceList));
+        if (getUserPossibilities().get(fullHouse)) {
+            getUserTemporarResult().replace(fullHouse, countFullHouse(user.getDiceList()));
             //[BUTTON] zatwierdzający, po jego zatwierdzeniu (kliknięciu):
             fullHouseAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(smallStraight)) {
-            userTemporarResult.replace(smallStraight, countSmallStraight(diceList));
+        if (getUserPossibilities().get(smallStraight)) {
+            getUserTemporarResult().replace(smallStraight, countSmallStraight(user.getDiceList()));
             //[BUTTON] zatwierdzający:
             smallStraightAcceptanceButton(user);
 
         }
 
-        if (userPossibilities.get(largeStraight)) {
-            userTemporarResult.replace(largeStraight, countLargeStraight(diceList));
+        if (getUserPossibilities().get(largeStraight)) {
+            getUserTemporarResult().replace(largeStraight, countLargeStraight(user.getDiceList()));
             //[BUTTON] zatwierdzający:
             largeStraightAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(fiveDice)) {
-            userTemporarResult.replace(fiveDice, count5dice(diceList));
+        if (getUserPossibilities().get(fiveDice)) {
+            getUserTemporarResult().replace(fiveDice, count5dice(user.getDiceList()));
             //[BUTTON] zatwierdzający:
             fiveDiceAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(chance)) {
-            userTemporarResult.replace(chance, countChance(diceList));
+        if (getUserPossibilities().get(chance)) {
+            getUserTemporarResult().replace(chance, countChance(user.getDiceList()));
             //[BUTTON] zatwierdzający:
             chanceAcceptanceButton(user);
         }
 
 
-        if (userPossibilities.get(bonusPoints)) {
+        if (getUserPossibilities().get(bonusPoints)) {
             if
-            (((userResult.get(aces)) + (userResult.get(twos)) + (userResult.get(threes)) + (userResult.get(fours)) +
-                    (userResult.get(fives)) + (userResult.get(sixes))) >= 65) {
-                userResult.replace(bonusPoints, 35);
-                userPossibilities.replace(bonusPoints, false);
+            (((getUserResult().get(aces)) + (getUserResult().get(twos)) + (getUserResult().get(threes)) + (getUserResult().get(fours)) +
+                    (getUserResult().get(fives)) + (getUserResult().get(sixes))) >= 65) {
+                getUserResult().replace(bonusPoints, 35);
+                getUserPossibilities().replace(bonusPoints, false);
             }
         }
 
-        userResult.replace(topScore, topScore(userResult));
-        userResult.replace(bottomScore, bottomScore(userResult));
+        getUserResult().replace(topScore, topScore(getUserResult()));
+        getUserResult().replace(bottomScore, bottomScore(getUserResult()));
 
     }
+    
 
-    public int getBottomScore(User user) {
-        int bottomScore = bottomScore(userResult);
-        return bottomScore;
-    }
-
-    public int getTopScore(User user) {
-        int topScore = topScore(userResult);
-        return topScore;
-    }
-
-    public int getTotalScore(User user) {
-        int totalScore = totalScore(userResult);
-        return totalScore;
-    }
-
-    public void clearTheTemporaryPoints(User user) {
-        for (Map.Entry<Score, Integer> entry : userTemporarResult.entrySet()) {
+    public void clearTheTemporaryPoints() {
+        for (Map.Entry<Score, Integer> entry : getUserTemporarResult().entrySet()) {
             entry.setValue(0);
         }
 

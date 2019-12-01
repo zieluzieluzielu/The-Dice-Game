@@ -4,7 +4,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class Aces implements ScoreInterface {
+    String scoreName = "Aces";
+
     PointCounter pointCounter = new PointCounter();
+
     @Override
     public int count(List<Integer> dicesIntList, int whatToCount) {
         if (dicesIntList.contains(whatToCount)) {
