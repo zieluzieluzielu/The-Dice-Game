@@ -28,4 +28,6 @@ public class Score {
                 "Score='" + Score + '\'' +
                 '}';
     }
+
+
 }

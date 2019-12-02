@@ -47,6 +47,8 @@ public class TheDiceGameTest {
 //        System.out.println("Dices to rethrow"+user.getDicesToRethrow());
 //        user.reThrow();
         computerPointCounter.computerTurn(user);
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.acesAcceptanceButton(user);
 
         int userAcesResult = pointCounter.count(user.getDiceList(), new SingleDiceScore(1));
@@ -72,6 +74,8 @@ public class TheDiceGameTest {
 
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.twosAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
 
@@ -98,6 +102,8 @@ public class TheDiceGameTest {
 
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.threesAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
         int userThreesResult = pointCounter.count(user.getDiceList(), new SingleDiceScore(3));
@@ -120,6 +126,8 @@ public class TheDiceGameTest {
         when(computerPointCounter.drawSize()).thenReturn(3);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.foursAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
 
@@ -144,6 +152,8 @@ public class TheDiceGameTest {
         when(computerPointCounter.drawSize()).thenReturn(4);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.fivesAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
         int userFivesResult = pointCounter.count(user.getDiceList(), new SingleDiceScore(5));
@@ -168,6 +178,8 @@ public class TheDiceGameTest {
         when(computerPointCounter.drawSize()).thenReturn(5);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.sixesAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
         int userSixesResult = pointCounter.count(user.getDiceList(), new SingleDiceScore(6));
@@ -193,6 +205,8 @@ public class TheDiceGameTest {
         when(randomComputerMock.nextInt(6)).thenReturn(5);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.threeOfaAKindAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
         int userThreeOfAKindResult = pointCounter.countThreeOfAKind(user.getDiceList());
@@ -221,6 +235,8 @@ public class TheDiceGameTest {
         when(computerPointCounter.drawSize()).thenReturn(7);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.fourOfaAKindOfaAKindAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
         int userFourOfAKindResult = pointCounter.countFourOfAKind(user.getDiceList());
@@ -245,6 +261,8 @@ public class TheDiceGameTest {
         when(computerPointCounter.drawSize()).thenReturn(8);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.fullHouseAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
         int userFullHouse = pointCounter.countFullHouse(user.getDiceList());
@@ -268,6 +286,8 @@ public class TheDiceGameTest {
         when(computerPointCounter.drawSize()).thenReturn(9);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.smallStraightAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
 
@@ -291,6 +311,8 @@ public class TheDiceGameTest {
         when(computerPointCounter.drawSize()).thenReturn(10);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.largeStraightAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
         int userLargeStraightResult = pointCounter.countLargeStraight(user.getDiceList());
@@ -313,6 +335,8 @@ public class TheDiceGameTest {
         when(computerPointCounter.drawSize()).thenReturn(11);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.fiveDiceAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
         int user5DiceResult = pointCounter.count5dice(user.getDiceList());
@@ -335,6 +359,8 @@ public class TheDiceGameTest {
         when(computerPointCounter.drawSize()).thenReturn(12);
         //When
         user.userThrow1();
+        pointCounter.rollTheDicePointCounter(user);//test temporary table
+        pointCounter.temporaryScoreTable();//test temporary table
         pointCounter.chanceAcceptanceButton(user);
         computerPointCounter.computerTurn(user);
         int userChanceResult = pointCounter.countChance(user.getDiceList());
@@ -344,10 +370,6 @@ public class TheDiceGameTest {
         pointCounter.scoreTable();
         computerPointCounter.scoreTable();
         computerPointCounter.computerPossibleTurn(user);
-        /*
-        System.out.println(computerPointCounter.getComputerResult());
-        System.out.println("should be empty "+computerPointCounter.getComputerTemporarResult());
-        System.out.println(computerPointCounter.getComputerPossibilities());*/
 
         //Then
         Assert.assertEquals(15, userChanceResult);
