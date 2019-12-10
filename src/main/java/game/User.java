@@ -15,6 +15,7 @@ public class User {
     public boolean userTurn;
 
     private List<Dice> diceList = new ArrayList<>();
+
     private List<Dice> dicesToRethrow = new ArrayList<>();
 
     public List<Dice> getDiceList() {
@@ -24,17 +25,55 @@ public class User {
     public List<Dice> getDicesToRethrow() {
         return dicesToRethrow;
     }
+
     public void userThrow1() {
+        clearDicesToRethrow();
         this.diceList = dicesProvider.get();
     }
 
+    public void afterSelectingDice(){
+
+
+        for (int n = diceList.size()-1; n > -1; n--)
+        if (diceList.get(n).getSelected()) {
+        diceList.remove(n);
+        }
+
+
+        System.out.println("after (diceList): "+getDiceList());
+        System.out.println("after (to rethrow): "+getDicesToRethrow());
+//
+//        diceList.stream()
+//                .filter(Dice::getSelected)
+//                .forEach(diceToRemove -> diceList.remove(diceToRemove));
+    }
+    public void afterUnselectingDice(){
+
+        for (int n = dicesToRethrow.size()-1; n > -1; n--)
+            if (!dicesToRethrow.get(n).getSelected()) {
+                dicesToRethrow.remove(n);
+            }
+
+        System.out.println("after unselect (diceList): "+getDiceList());
+        System.out.println("after unselect (to rethrow): "+getDicesToRethrow());
+//
+//        diceList.stream()
+//                .filter(Dice::getSelected)
+//                .forEach(diceToRemove -> diceList.remove(diceToRemove));
+    }
+
+    public void clearDicesToRethrow(){
+        dicesToRethrow.clear();
+    }
+
     public void reThrow() {
-       dicesToRethrow
+        afterSelectingDice();
+        dicesToRethrow
                 .stream()
                 .map(dice -> dicesProvider.getSingle())
                 .forEach(newDice -> diceList.add(newDice));
-        System.out.println("dices were rethrowed");
-        dicesToRethrow.clear();
+        clearDicesToRethrow();
+        System.out.println("dices were rethrown");
     }
 
 
@@ -69,8 +108,6 @@ public class User {
         return sum;
     }
 
-
-
     int totalScore(HashMap<Score, Integer> result) {
         return result.values().stream().mapToInt(Integer::intValue).sum();
         //return topScore(result)+bottomScore(result);
@@ -87,7 +124,7 @@ public class User {
         }
     }
 
-    //mozliwosc wybrania ponizszej metody przez button -> tylko gdy kosc zostala wczesniej wybrana
+    //mozliwosc wybrania ponizszej metody przez button ->
     public boolean unSelectDice(Dice dice) {
         if (dice.selected) {
             return dice.selected = false;

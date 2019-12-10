@@ -1,0 +1,75 @@
+
+.button1{
+    -fx-background-color: linear-gradient(#ffffff, #dddddd);
+    -fx-background-radius: 8;
+    -fx-background-insets: 0;
+    -fx-text-fill: #be1d00;
+}
+.button1v2{
+    -fx-background-color: linear-gradient(#ffffff, #dddddd);
+    -fx-background-radius: 8;
+    -fx-background-insets: 0;
+    -fx-text-fill: #be1d00;
+}
+
+
+.button2{
+    -fx-background-color: linear-gradient(#be1d00, #b40000);
+    -fx-background-radius: 8;
+    -fx-background-insets: 0;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+}
+
+.buttonSelected{
+    -fx-background-color: linear-gradient(#be1d00, #b40000);
+    -fx-background-radius: 8;
+    -fx-background-insets: 0;
+    -fx-text-fill: #dddddd;
+}
+
+.whiteText{
+    -fx-font-family: "Arial";
+    -fx-font-weight: 500;
+    -fx-text-fill: #FFF;
+    -fx-font-size: 20;
+}
+
+.whiteStatusText{
+    -fx-font-family: "Arial";
+    -fx-font-weight: 500;
+    -fx-text-fill: #FFF;
+    -fx-font-size: 14;
+}
+
+.winnerText{
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFF;
+    -fx-font-size: 40;
+}
+
+.smallWhiteText{
+    -fx-font-family: "Arial";
+    -fx-font-weight: 500;
+    -fx-text-fill: #FFF;
+    -fx-font-size: 10;
+}
+
+
+.whiteBoldText{
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFF;
+    -fx-font-size: 20;
+}
+
+.yellowText{
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFF33;
+    -font-weight: 900;
+    -fx-font-size: 20;
+}

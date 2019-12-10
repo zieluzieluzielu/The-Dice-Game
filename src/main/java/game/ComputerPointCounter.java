@@ -7,23 +7,20 @@ import java.util.Random;
 
 public class ComputerPointCounter {
 
-    Random random;
+    private Random random;
 
     public ComputerPointCounter(Random random) {
         this.random = random;
-    }
-
-    public void initialize() {
         scoreMap();
         scorePossibilities();
         scoreTemporarMap();
     }
 
-    public HashMap<Score, Boolean> computerPossibilities = new HashMap<>();
-    public HashMap<Score, Integer> computerResult = new HashMap<>();
-    public ArrayList<Score> computerTemporarResult = new ArrayList<>();
+    private  HashMap<Score, Boolean> computerPossibilities = new HashMap<>();
+    private  HashMap<Score, Integer> computerResult = new HashMap<>();
+    private  ArrayList<Score> computerTemporarResult = new ArrayList<>();
 
-    public HashMap<Score, Integer> scoreMap() {
+    private  HashMap<Score, Integer> scoreMap() {
         computerResult.put(aces, 0);
         computerResult.put(twos, 0);
         computerResult.put(threes, 0);
@@ -42,7 +39,7 @@ public class ComputerPointCounter {
     }
 
 
-    public ArrayList<Score> scoreTemporarMap() {
+    private  ArrayList<Score> scoreTemporarMap() {
         computerTemporarResult.add(aces);
         computerTemporarResult.add(twos);
         computerTemporarResult.add(threes);
@@ -61,7 +58,7 @@ public class ComputerPointCounter {
     }
 
 
-    public HashMap<Score, Boolean> scorePossibilities() {
+    private  HashMap<Score, Boolean> scorePossibilities() {
         computerPossibilities.put(aces, true);
         computerPossibilities.put(twos, true);
         computerPossibilities.put(threes, true);
@@ -91,54 +88,29 @@ public class ComputerPointCounter {
         return computerTemporarResult;
     }
 
-    public int roundNr = 0;
+    private  int roundNr = 1;
 
-    Score aces = new Score("Aces");
-    Score twos = new Score("Twos");
-    Score threes = new Score("Threes");
-    Score fours = new Score("Fours");
-    Score fives = new Score("Fives");
-    Score sixes = new Score("Sixes");
+    private Score aces = new Score("Aces");
+    private Score twos = new Score("Twos");
+    private Score threes = new Score("Threes");
+    private Score fours = new Score("Fours");
+    private Score fives = new Score("Fives");
+    private Score sixes = new Score("Sixes");
 
-    Score threeOfaAKind = new Score("Three Of A Kind");
-    Score fourOfaAKind = new Score("Four Of A Kind");
-    Score fullHouse = new Score("Full House");
-    Score smallStraight = new Score("Small Straight");
-    Score largeStraight = new Score("Large Straight");
-    Score fiveDice = new Score("5 dice");
-    Score chance = new Score("Chance");
+    private Score threeOfaAKind = new Score("Three Of A Kind");
+    private Score fourOfaAKind = new Score("Four Of A Kind");
+    private Score fullHouse = new Score("Full House");
+    private Score smallStraight = new Score("Small Straight");
+    private Score largeStraight = new Score("Large Straight");
+    private Score fiveDice = new Score("5 dice");
+    private Score chance = new Score("Chance");
 
-    Score bonusPoints = new Score("BonusPoints");
-    Score topScore = new Score("Top Score");
-    Score bottomScore = new Score("Bottom Score");
+    private Score bonusPoints = new Score("BonusPoints");
+    private Score topScore = new Score("Top Score");
+    private Score bottomScore = new Score("Bottom Score");
 
     public int getRoundNr() {
         return roundNr;
-    }
-
-    public void scoreTable() {
-        System.out.println("COMPUTER SCORE:");
-        System.out.println("Aces: " + getComputerResult().get(getAces()));
-        System.out.println("Twos: " + getComputerResult().get(getTwos()));
-        System.out.println("Threes: " + getComputerResult().get(getThrees()));
-        System.out.println("Fours: " + getComputerResult().get(getFours()));
-        System.out.println("Fives: " + getComputerResult().get(getFives()));
-        System.out.println("Sixes: " + getComputerResult().get(getSixes()));
-        System.out.println("Top score: " + topScore(getComputerResult()));
-        System.out.println("Bonus: " + getComputerResult().get(getBonusPoints()));
-        System.out.println("");
-
-        System.out.println("Three Of A Kind: " + getComputerResult().get(getThreeOfaAKind()));
-        System.out.println("Four Of A Kind: " + getComputerResult().get(getFourOfaAKind()));
-        System.out.println("Full House: " + getComputerResult().get(getFullHouse()));
-        System.out.println("Small Straight: " + getComputerResult().get(getSmallStraight()));
-        System.out.println("Large Straight: " + getComputerResult().get(getLargeStraight()));
-        System.out.println("Chance: " + getComputerResult().get(getChance()));
-        System.out.println("5 dice: " + getComputerResult().get(getFiveDice()));
-
-        System.out.println("Bottom score: " + bottomScore(getComputerResult()));
-        System.out.println("Total score: " + totalScore(getComputerResult()));
-        System.out.println("\n");
     }
 
     public int drawSize() {
@@ -215,43 +187,35 @@ public class ComputerPointCounter {
     }
 
     public int countAces() {
-        int value = randomDiceAmount();  //1-2-3-4-5
-        return value;
+        return randomDiceAmount();
     }
 
     public int countTwos() {
-        int value = randomDiceAmount() * 2;  //2-4-6-8-10
-        return value;
+        return randomDiceAmount() * 2;
     }
 
     public int countThrees() {
-        int value = randomDiceAmount() * 3;  //3-6-9-12-15
-        return value;
+        return randomDiceAmount() * 3;
     }
 
     public int countFours() {
-        int value = randomDiceAmount() * 4;  //4-8-12-16-20
-        return value;
+        return randomDiceAmount() * 4;
     }
 
     public int countFives() {
-        int value = randomDiceAmount() * 5;  //5-10-15-20-25
-        return value;
+        return randomDiceAmount() * 5;
     }
 
     public int countSixes() {
-        int value = randomDiceAmount() * 6;  //6-12-18-24-30-36
-        return value;
+        return randomDiceAmount() * 6;
     }
 
     public int countThreeOfAKind() {
-        int value = (randomDice() * 3) + (randomDice() * 2);
-        return value;
+        return (randomDice() * 3) + (randomDice() * 2);
     }
 
     public int countFourOfAKind() {
-        int value = (randomDice() * 4) + randomDice();
-        return value;
+        return (randomDice() * 4) + randomDice();
     }
 
     public int countFullHouse() {
@@ -262,8 +226,7 @@ public class ComputerPointCounter {
         options.add(0);
         options.add(25);
 
-        int value = options.get(random.nextInt(options.size()));
-        return value;
+        return options.get(random.nextInt(options.size()));
     }
 
     public int countSmallStraight() {
@@ -273,8 +236,7 @@ public class ComputerPointCounter {
         options.add(0);
         options.add(30);
         options.add(30);
-        int value = options.get(random.nextInt(options.size()));
-        return value;
+        return options.get(random.nextInt(options.size()));
     }
 
     public int countLargeStraight() {
@@ -284,9 +246,7 @@ public class ComputerPointCounter {
         options.add(0);
         options.add(0);
         options.add(40);
-
-        int value = options.get(random.nextInt(options.size()));
-        return value;
+        return options.get(random.nextInt(options.size()));
     }
 
     public int count5Dice() {
@@ -296,24 +256,20 @@ public class ComputerPointCounter {
         options.add(0);
         options.add(50);
         options.add(0);
-        int value = options.get(random.nextInt(options.size()));
-        return value;
+        return options.get(random.nextInt(options.size()));
     }
 
     public int countChance() {
-        int value = randomDice() + randomDice() + randomDice() + randomDice() + randomDice();
-        return value;
+        return randomDice() + randomDice() + randomDice() + randomDice() + randomDice();
     }
 
-    int topScore(HashMap<Score, Integer> result) {
-        int countTopScore = ((result.get(aces)) + (result.get(twos)) + (result.get(threes)) + (result.get(fours)) + (result.get(fives)) + (result.get(sixes)));
-        return countTopScore;
+    public int topScore(HashMap<Score, Integer> result) {
+        return ((result.get(aces)) + (result.get(twos)) + (result.get(threes)) + (result.get(fours)) + (result.get(fives)) + (result.get(sixes)));
     }
 
 
-    int bottomScore(HashMap<Score, Integer> result) {
-        int countBottomScore = ((result.get(threeOfaAKind)) + (result.get(fourOfaAKind)) + (result.get(fullHouse)) + (result.get(smallStraight)) + (result.get(largeStraight)) + (result.get(fiveDice)) + (result.get(chance)));
-        return countBottomScore;
+    public int bottomScore(HashMap<Score, Integer> result) {
+        return ((result.get(threeOfaAKind)) + (result.get(fourOfaAKind)) + (result.get(fullHouse)) + (result.get(smallStraight)) + (result.get(largeStraight)) + (result.get(fiveDice)) + (result.get(chance)));
     }
 
     public int totalScore(HashMap<Score, Integer> result) {
@@ -418,7 +374,7 @@ public class ComputerPointCounter {
             if (computerPossibilities.get(bonusPoints)) {
                 if
                 (((computerResult.get(aces)) + (computerResult.get(twos)) + (computerResult.get(threes)) + (computerResult.get(fours)) +
-                        (computerResult.get(fives)) + (computerResult.get(sixes))) >= 65) {
+                        (computerResult.get(fives)) + (computerResult.get(sixes))) >= 63) {
                     computerResult.replace(bonusPoints, 35);
                     computerPossibilities.replace(bonusPoints, false);
                 }

@@ -24,9 +24,7 @@ public class Score {
 
     @Override
     public String toString() {
-        return "Score{" +
-                "Score='" + Score + '\'' +
-                '}';
+        return Score;
     }
 
 
