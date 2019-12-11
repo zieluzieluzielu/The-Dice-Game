@@ -928,7 +928,7 @@ public class TheDiceGame extends Application {
         });
         dicesButtons.setHgap(74);
         grid.add(dicesButtons, 10, 14, 35, 35);
-        grid.setHalignment(dicesButtons, HPos.CENTER);
+        GridPane.setHalignment(dicesButtons, HPos.CENTER);
         grid.add(newThrow, 30, 19, 3, 1);
         grid.add(acesAccept, 62, 4, 1, 1);
         grid.add(twosAccept, 62, 5, 1, 1);
