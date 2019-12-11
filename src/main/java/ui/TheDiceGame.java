@@ -100,7 +100,7 @@ public class TheDiceGame extends Application {
     private Label userPoints = new Label("USER SCORE");
     private Label computerPoints = new Label("COMPUTER SCORE ");
 
-    public void throwDices() {
+    private void throwDices() {
         if (computerPointCounter.getRoundNr() < 14) {
             if (user.getDiceList().isEmpty()) {
                 try {
@@ -127,11 +127,11 @@ public class TheDiceGame extends Application {
         }
     }
 
-    public void clearDices() {
+    private void clearDices() {
         dices.getChildren().removeAll(dices.getChildren());
     }
 
-    public void reThrowDices() {
+    private void reThrowDices() {
         if (computerPointCounter.getRoundNr() < 14)
             if (!user.getDiceList().isEmpty() && !user.getDicesToRethrow().isEmpty()) {
                 try {
@@ -158,7 +158,7 @@ public class TheDiceGame extends Application {
             }
     }
 
-    public void newRound() {
+    private void newRound() {
         statusLabel.setText("");
         computerTurn();
         roundNumber.setText("Round Number:" + computerPointCounter.getRoundNr());
@@ -168,7 +168,7 @@ public class TheDiceGame extends Application {
         gameWinner();
     }
 
-    public void gameWinner() {
+    private void gameWinner() {
         if (computerPointCounter.getRoundNr() == 14) {
 
             dicesButtons.getChildren().removeAll(dicesButtons.getChildren());
@@ -186,7 +186,7 @@ public class TheDiceGame extends Application {
         }
     }
 
-    public void computerTurn() {
+    private void computerTurn() {
         computerPointCounter.computerPossibleTurn(user);
         computerPointCounter.computerTurn(user);
         System.out.println("Computer points: " + computerPointCounter.getComputerResult());
@@ -210,7 +210,7 @@ public class TheDiceGame extends Application {
 
     }
 
-    public void fillUserTable() {
+    private void fillUserTable() {
         userAces.setText(String.valueOf(pointCounter.tableResult(pointCounter.getAces())));
         userTwos.setText(String.valueOf(pointCounter.tableResult(pointCounter.getTwos())));
         userThrees.setText(String.valueOf(pointCounter.tableResult(pointCounter.getThrees())));
@@ -226,7 +226,7 @@ public class TheDiceGame extends Application {
         userChance.setText(String.valueOf(pointCounter.tableResult(pointCounter.getChance())));
     }
 
-    public void countTotalUsersScores() {
+    private void countTotalUsersScores() {
         pointCounter.bonusCounter();
         userTopScore.setText(String.valueOf(pointCounter.topScore(pointCounter.getUserResult())));
         userBottomScore.setText(String.valueOf(pointCounter.bottomScore(pointCounter.getUserResult())));
@@ -313,10 +313,10 @@ public class TheDiceGame extends Application {
         grid.add(gameLogo, 30, 2, 3, 1);
         grid.add(gameResult, 25, 10, 18, 10);
         grid.add(statusLabel, 8, 5, 27, 35);
-        grid.setHalignment(statusLabel, HPos.CENTER);
+        GridPane.setHalignment(statusLabel, HPos.CENTER);
 
         grid.add(whatToDo, 8, 2, 27, 35);
-        grid.setHalignment(whatToDo, HPos.CENTER);
+        GridPane.setHalignment(whatToDo, HPos.CENTER);
         grid.add(endGame, 40, 10, 3, 1);
 
         grid.add(roundNumber, 3, 20, 1, 1);
