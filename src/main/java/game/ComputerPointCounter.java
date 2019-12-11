@@ -16,11 +16,11 @@ public class ComputerPointCounter {
         scoreTemporarMap();
     }
 
-    private  HashMap<Score, Boolean> computerPossibilities = new HashMap<>();
-    private  HashMap<Score, Integer> computerResult = new HashMap<>();
-    private  ArrayList<Score> computerTemporarResult = new ArrayList<>();
+    private HashMap<Score, Boolean> computerPossibilities = new HashMap<>();
+    private HashMap<Score, Integer> computerResult = new HashMap<>();
+    private ArrayList<Score> computerTemporarResult = new ArrayList<>();
 
-    private  HashMap<Score, Integer> scoreMap() {
+    private HashMap<Score, Integer> scoreMap() {
         computerResult.put(aces, 0);
         computerResult.put(twos, 0);
         computerResult.put(threes, 0);
@@ -39,7 +39,7 @@ public class ComputerPointCounter {
     }
 
 
-    private  ArrayList<Score> scoreTemporarMap() {
+    private ArrayList<Score> scoreTemporarMap() {
         computerTemporarResult.add(aces);
         computerTemporarResult.add(twos);
         computerTemporarResult.add(threes);
@@ -58,7 +58,7 @@ public class ComputerPointCounter {
     }
 
 
-    private  HashMap<Score, Boolean> scorePossibilities() {
+    private HashMap<Score, Boolean> scorePossibilities() {
         computerPossibilities.put(aces, true);
         computerPossibilities.put(twos, true);
         computerPossibilities.put(threes, true);
@@ -76,19 +76,11 @@ public class ComputerPointCounter {
         return computerPossibilities;
     }
 
-    public HashMap<Score, Boolean> getComputerPossibilities() {
-        return computerPossibilities;
-    }
-
     public HashMap<Score, Integer> getComputerResult() {
         return computerResult;
     }
 
-    public ArrayList<Score> getComputerTemporarResult() {
-        return computerTemporarResult;
-    }
-
-    private  int roundNr = 1;
+    private int roundNr = 1;
 
     private Score aces = new Score("Aces");
     private Score twos = new Score("Twos");
@@ -274,7 +266,6 @@ public class ComputerPointCounter {
 
     public int totalScore(HashMap<Score, Integer> result) {
         return result.values().stream().mapToInt(Integer::intValue).sum();
-        //return topScore(result)+bottomScore(result);
     }
 
     public void computerPossibleTurn(User user) {

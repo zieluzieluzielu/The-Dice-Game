@@ -19,25 +19,19 @@ public class Dice {
     }
 
     public void setDiceImage() {
-        if(this.value==1) {
+        if (this.value == 1) {
             this.diceImage = new Image("dices/dice_1.png", 125, 125, true, true);
-        }
-        else if (this.value==2){
+        } else if (this.value == 2) {
             this.diceImage = new Image("dices/dice_2.png", 125, 125, true, true);
-        }
-        else if (this.value==3){
+        } else if (this.value == 3) {
             this.diceImage = new Image("dices/dice_3.png", 125, 125, true, true);
-        }
-        else if (this.value==4){
+        } else if (this.value == 4) {
             this.diceImage = new Image("dices/dice_4.png", 125, 125, true, true);
-        }
-        else if (this.value==5){
+        } else if (this.value == 5) {
             this.diceImage = new Image("dices/dice_5.png", 125, 125, true, true);
-        }
-        else if (this.value==6){
+        } else if (this.value == 6) {
             this.diceImage = new Image("dices/dice_6.png", 125, 125, true, true);
-        }
-        else {
+        } else {
             this.diceImage = new Image("dices/dice_6.png", 125, 125, true, true);
         }
     }
@@ -48,10 +42,6 @@ public class Dice {
 
     public boolean getSelected() {
         return selected;
-    }
-
-    public void setSelected() {
-        this.selected = true;
     }
 
     @Override

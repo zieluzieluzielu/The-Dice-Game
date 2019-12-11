@@ -31,38 +31,39 @@ public class User {
         this.diceList = dicesProvider.get();
     }
 
-    public void afterSelectingDice(){
+    public void afterSelectingDice() {
 
 
-        for (int n = diceList.size()-1; n > -1; n--)
-        if (diceList.get(n).getSelected()) {
-        diceList.remove(n);
-        }
+        for (int n = diceList.size() - 1; n > -1; n--)
+            if (diceList.get(n).getSelected()) {
+                diceList.remove(n);
+            }
 
 
-        System.out.println("after (diceList): "+getDiceList());
-        System.out.println("after (to rethrow): "+getDicesToRethrow());
+        System.out.println("after (diceList): " + getDiceList());
+        System.out.println("after (to rethrow): " + getDicesToRethrow());
 //
 //        diceList.stream()
 //                .filter(Dice::getSelected)
 //                .forEach(diceToRemove -> diceList.remove(diceToRemove));
     }
-    public void afterUnselectingDice(){
 
-        for (int n = dicesToRethrow.size()-1; n > -1; n--)
+    public void afterUnselectingDice() {
+
+        for (int n = dicesToRethrow.size() - 1; n > -1; n--)
             if (!dicesToRethrow.get(n).getSelected()) {
                 dicesToRethrow.remove(n);
             }
 
-        System.out.println("after unselect (diceList): "+getDiceList());
-        System.out.println("after unselect (to rethrow): "+getDicesToRethrow());
+        System.out.println("after unselect (diceList): " + getDiceList());
+        System.out.println("after unselect (to rethrow): " + getDicesToRethrow());
 //
 //        diceList.stream()
 //                .filter(Dice::getSelected)
 //                .forEach(diceToRemove -> diceList.remove(diceToRemove));
     }
 
-    public void clearDicesToRethrow(){
+    public void clearDicesToRethrow() {
         dicesToRethrow.clear();
     }
 
@@ -76,44 +77,6 @@ public class User {
         System.out.println("dices were rethrown");
     }
 
-
-    //docelowy (stara wersja)
-//    public void userThrow(List<Dice> diceList) {
-//        for (int n = 1; n <= diceList.size(); n++) {
-//            rollTheDice(diceList.get(n));
-//        }
-//    }
-//
-//    public int rollTheDice(Dice dice) {
-//        if (!dice.getSelected()) {
-//            return singleDiceRoll();
-//        } else return dice.getValue();
-//    }
-//
-//    public int singleDiceRoll() {
-//        return random.nextInt(6) + 1;
-//    }
-//    public void reThrowDices(List<Dice> diceList) {
-//        for (int n = 1; n <= diceList.size(); n++) {
-//            rollTheDice(diceList.get(n));
-//        }
-//    }
-
-
-    public int sumOfDices(List<Dice> diceList) {
-        int sum = 0;
-        for (int n = 0; n < diceList.size(); n++) {
-            sum += diceList.get(n).getValue();
-        }
-        return sum;
-    }
-
-    int totalScore(HashMap<Score, Integer> result) {
-        return result.values().stream().mapToInt(Integer::intValue).sum();
-        //return topScore(result)+bottomScore(result);
-    }
-
-    //mozliwosc wybrania ponizszej metody przez button -> tylko gdy kosc nie zostala wczesniej wybrana
     public boolean selectDice(Dice dice) {
         if (!dice.selected) {
             dicesToRethrow.add(dice);
@@ -124,7 +87,6 @@ public class User {
         }
     }
 
-    //mozliwosc wybrania ponizszej metody przez button ->
     public boolean unSelectDice(Dice dice) {
         if (dice.selected) {
             return dice.selected = false;
@@ -132,13 +94,5 @@ public class User {
             return dice.selected = true;
         }
     }
-
-    public void addDicesToList(List<Dice> diceList, List<Integer> dicesIntList) {
-        for (int n = 1; n <= diceList.size(); n++) {
-            dicesIntList.add(diceList.get(n).getValue());
-        }
-    }
-
-
 
 }

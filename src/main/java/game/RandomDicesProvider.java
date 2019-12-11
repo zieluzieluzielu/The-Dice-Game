@@ -14,14 +14,14 @@ public class RandomDicesProvider {
         this.random = random;
     }
 
-    public List<Dice> get(){
-        return Stream.of(1,2,3,4,5)
+    public List<Dice> get() {
+        return Stream.of(1, 2, 3, 4, 5)
                 .map(e -> getSingle())
                 .collect(Collectors.toList());
     }
 
-    public Dice getSingle(){
-        return new Dice(random.nextInt(6)+1 , false);
+    public Dice getSingle() {
+        return new Dice(random.nextInt(6) + 1, false);
 
     }
 }

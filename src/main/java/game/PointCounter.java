@@ -173,17 +173,12 @@ public class PointCounter {
         return bonusPoints;
     }
 
-    public Score getTopScore(){
-        return topScore;
-    }
-
     private SingleDiceScore diceScore1 = new SingleDiceScore(1);
     private SingleDiceScore diceScore2 = new SingleDiceScore(2);
     private SingleDiceScore diceScore3 = new SingleDiceScore(3);
     private SingleDiceScore diceScore4 = new SingleDiceScore(4);
     private SingleDiceScore diceScore5 = new SingleDiceScore(5);
     private SingleDiceScore diceScore6 = new SingleDiceScore(6);
-
 
 
     int diceFrequency(List<Dice> diceList, SingleDiceScore singleDiceScore) {
@@ -324,10 +319,10 @@ public class PointCounter {
 
 
     public void acesAcceptance(User user) {
-            getUserResult().replace(aces, count(user.getDiceList(), diceScore1));
-            getUserPossibilities().replace(aces, false);
-            user.userTurn = false;
-            clearTheTemporaryPoints();
+        getUserResult().replace(aces, count(user.getDiceList(), diceScore1));
+        getUserPossibilities().replace(aces, false);
+        user.userTurn = false;
+        clearTheTemporaryPoints();
     }
 
     public void twosAcceptance(User user) {
