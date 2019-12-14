@@ -1,13 +1,13 @@
 package game;
 
 public class SingleDiceScore {
-    int diceScore;
+    private int diceScore;
 
     public SingleDiceScore(int diceScore) {
         this.diceScore = diceScore;
     }
 
-    public int getDiceScore() {
+    int getDiceScore() {
         return diceScore;
     }
 

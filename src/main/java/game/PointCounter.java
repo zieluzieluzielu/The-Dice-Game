@@ -34,7 +34,7 @@ public class PointCounter {
     private HashMap<Score, Integer> userResult = new HashMap<>();
     private HashMap<Score, Integer> userTemporarResult = new HashMap<>();
 
-    private HashMap<Score, Integer> scoreMap() {
+    private void scoreMap() {
         userResult.put(aces, 0);
         userResult.put(twos, 0);
         userResult.put(threes, 0);
@@ -51,10 +51,9 @@ public class PointCounter {
         userResult.put(bonusPoints, 0);
         userResult.put(topScore, 0);
         userResult.put(bottomScore, 0);
-        return userResult;
     }
 
-    private HashMap<Score, Integer> scoreTemporarMap() {
+    private void scoreTemporarMap() {
         userTemporarResult.put(aces, 0);
         userTemporarResult.put(twos, 0);
         userTemporarResult.put(threes, 0);
@@ -71,10 +70,9 @@ public class PointCounter {
         userTemporarResult.put(bonusPoints, 0);
         userTemporarResult.put(topScore, 0);
         userTemporarResult.put(bottomScore, 0);
-        return userTemporarResult;
     }
 
-    private HashMap<Score, Boolean> scorePossibilities() {
+    private void scorePossibilities() {
         userPossibilities.put(aces, true);
         userPossibilities.put(twos, true);
         userPossibilities.put(threes, true);
@@ -91,7 +89,6 @@ public class PointCounter {
         userPossibilities.put(bonusPoints, true);
         userPossibilities.put(topScore, true);
         userPossibilities.put(bottomScore, true);
-        return userPossibilities;
     }
 
     public HashMap<Score, Boolean> getUserPossibilities() {
@@ -181,13 +178,13 @@ public class PointCounter {
     private SingleDiceScore diceScore6 = new SingleDiceScore(6);
 
 
-    int diceFrequency(List<Dice> diceList, SingleDiceScore singleDiceScore) {
-        return Collections.frequency(diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()), singleDiceScore.getDiceScore());
+    private int diceFrequency(List<Dice> diceList, SingleDiceScore singleDiceScore) {
+        return Collections.frequency(diceList.stream().map(Dice::getValue).collect(Collectors.toList()), singleDiceScore.getDiceScore());
 
     }
 
     public int count(List<Dice> diceList, SingleDiceScore singleDiceScore) {
-        if (diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(singleDiceScore.getDiceScore())) {
+        if (diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(singleDiceScore.getDiceScore())) {
             int occurrences = diceFrequency(diceList, singleDiceScore);
             return occurrences * singleDiceScore.getDiceScore();
         } else {
@@ -199,8 +196,7 @@ public class PointCounter {
     public int countThreeOfAKind(List<Dice> diceList) {
         if (diceFrequency(diceList, diceScore1) >= 3 || diceFrequency(diceList, diceScore2) >= 3 || diceFrequency(diceList, diceScore3) >= 3 ||
                 diceFrequency(diceList, diceScore4) >= 3 || diceFrequency(diceList, diceScore5) >= 3 || diceFrequency(diceList, diceScore6) >= 3) {
-            int sum = diceList.stream().mapToInt(i -> i.getValue()).sum();
-            return sum;
+            return diceList.stream().mapToInt(Dice::getValue).sum();
         } else {
             return 0;
         }
@@ -210,8 +206,7 @@ public class PointCounter {
     public int countFourOfAKind(List<Dice> diceList) {
         if (diceFrequency(diceList, diceScore1) >= 4 || diceFrequency(diceList, diceScore2) >= 4 || diceFrequency(diceList, diceScore3) >= 4 ||
                 diceFrequency(diceList, diceScore4) >= 4 || diceFrequency(diceList, diceScore5) >= 4 || diceFrequency(diceList, diceScore6) >= 4) {
-            int sum = diceList.stream().mapToInt(i -> i.getValue()).sum();
-            return sum;
+            return diceList.stream().mapToInt(Dice::getValue).sum();
         } else {
             return 0;
         }
@@ -253,11 +248,11 @@ public class PointCounter {
 
     public int countSmallStraight(List<Dice> diceList) {
         if (
-                (diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore1.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore2.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore4.getDiceScore()))
+                (diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore1.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore2.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore4.getDiceScore()))
                         ||
-                        (diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore2.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore4.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore5.getDiceScore()))
+                        (diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore2.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore4.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore5.getDiceScore()))
                         ||
-                        (diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore4.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore5.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore6.getDiceScore()))
+                        (diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore4.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore5.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore6.getDiceScore()))
         ) {
             return 30;
         } else {
@@ -268,9 +263,9 @@ public class PointCounter {
 
     public int countLargeStraight(List<Dice> diceList) {
         if (
-                (diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore1.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore2.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore4.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore5.getDiceScore()))
+                (diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore1.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore2.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore4.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore5.getDiceScore()))
                         ||
-                        (diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore2.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore4.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore5.getDiceScore()) && diceList.stream().map(i -> i.getValue()).collect(Collectors.toList()).contains(diceScore6.getDiceScore()))
+                        (diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore2.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore3.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore4.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore5.getDiceScore()) && diceList.stream().map(Dice::getValue).collect(Collectors.toList()).contains(diceScore6.getDiceScore()))
         ) {
             return 40;
         } else {
@@ -289,18 +284,15 @@ public class PointCounter {
     }
 
     public int countChance(List<Dice> diceList) {
-        int sum = diceList.stream().mapToInt(i -> i.getValue()).sum();
-        return sum;
+        return diceList.stream().mapToInt(Dice::getValue).sum();
     }
 
     public int topScore(HashMap<Score, Integer> result) {
-        int countTopScore = ((result.get(aces)) + (result.get(twos)) + (result.get(threes)) + (result.get(fours)) + (result.get(fives)) + (result.get(sixes)));
-        return countTopScore;
+        return ((result.get(aces)) + (result.get(twos)) + (result.get(threes)) + (result.get(fours)) + (result.get(fives)) + (result.get(sixes)));
     }
 
     public int bottomScore(HashMap<Score, Integer> result) {
-        int countBottomScore = ((result.get(threeOfaAKind)) + (result.get(fourOfaAKind)) + (result.get(fullHouse)) + (result.get(smallStraight)) + (result.get(largeStraight)) + (result.get(fiveDice)) + (result.get(chance)));
-        return countBottomScore;
+        return ((result.get(threeOfaAKind)) + (result.get(fourOfaAKind)) + (result.get(fullHouse)) + (result.get(smallStraight)) + (result.get(largeStraight)) + (result.get(fiveDice)) + (result.get(chance)));
     }
 
     public int totalScore(HashMap<Score, Integer> result) {

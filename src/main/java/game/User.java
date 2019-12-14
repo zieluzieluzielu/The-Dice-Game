@@ -1,8 +1,6 @@
 package game;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class User {
 
@@ -12,7 +10,7 @@ public class User {
         this.dicesProvider = dicesProvider;
     }
 
-    public boolean userTurn;
+    boolean userTurn;
 
     private List<Dice> diceList = new ArrayList<>();
 
@@ -31,7 +29,7 @@ public class User {
         this.diceList = dicesProvider.get();
     }
 
-    public void afterSelectingDice() {
+    private void afterSelectingDice() {
 
 
         for (int n = diceList.size() - 1; n > -1; n--)
@@ -42,10 +40,7 @@ public class User {
 
         System.out.println("after (diceList): " + getDiceList());
         System.out.println("after (to rethrow): " + getDicesToRethrow());
-//
-//        diceList.stream()
-//                .filter(Dice::getSelected)
-//                .forEach(diceToRemove -> diceList.remove(diceToRemove));
+
     }
 
     public void afterUnselectingDice() {
@@ -56,14 +51,10 @@ public class User {
             }
 
         System.out.println("after unselect (diceList): " + getDiceList());
-        System.out.println("after unselect (to rethrow): " + getDicesToRethrow());
-//
-//        diceList.stream()
-//                .filter(Dice::getSelected)
-//                .forEach(diceToRemove -> diceList.remove(diceToRemove));
+
     }
 
-    public void clearDicesToRethrow() {
+    private void clearDicesToRethrow() {
         dicesToRethrow.clear();
     }
 
@@ -77,22 +68,17 @@ public class User {
         System.out.println("dices were rethrown");
     }
 
-    public boolean selectDice(Dice dice) {
+    public void selectDice(Dice dice) {
         if (!dice.selected) {
             dicesToRethrow.add(dice);
-            return dice.selected = true;
+            dice.selected = true;
         } else {
             System.out.println("Dice was already selected");
-            return dice.selected;
         }
     }
 
-    public boolean unSelectDice(Dice dice) {
-        if (dice.selected) {
-            return dice.selected = false;
-        } else {
-            return dice.selected = true;
-        }
+    public void unSelectDice(Dice dice) {
+        dice.selected = !dice.selected;
     }
 
 }

@@ -1,43 +1,43 @@
 package game;
 
 import javafx.scene.image.Image;
+import ui.DiceImage;
 
 public class Dice {
 
     int value;
     boolean selected;
-    Image diceImage;
+    Image imageOfDice;
+    DiceImage diceImage = new DiceImage();
 
     public Dice(int value, boolean selected) {
         this.value = value;
         this.selected = selected;
-        setDiceImage();
+        setDiceImage(diceImage);
     }
 
     public int getValue() {
         return value;
     }
 
-    public void setDiceImage() {
+    public void setDiceImage(DiceImage diceImage) {
         if (this.value == 1) {
-            this.diceImage = new Image("dices/dice_1.png", 125, 125, true, true);
+            this.imageOfDice = diceImage.getDice1();
         } else if (this.value == 2) {
-            this.diceImage = new Image("dices/dice_2.png", 125, 125, true, true);
+            this.imageOfDice = diceImage.getDice2();
         } else if (this.value == 3) {
-            this.diceImage = new Image("dices/dice_3.png", 125, 125, true, true);
+            this.imageOfDice = diceImage.getDice3();
         } else if (this.value == 4) {
-            this.diceImage = new Image("dices/dice_4.png", 125, 125, true, true);
+            this.imageOfDice = diceImage.getDice4();
         } else if (this.value == 5) {
-            this.diceImage = new Image("dices/dice_5.png", 125, 125, true, true);
-        } else if (this.value == 6) {
-            this.diceImage = new Image("dices/dice_6.png", 125, 125, true, true);
+            this.imageOfDice = diceImage.getDice5();
         } else {
-            this.diceImage = new Image("dices/dice_6.png", 125, 125, true, true);
+            this.imageOfDice = diceImage.getDice6();
         }
     }
 
     public Image getDiceImage() {
-        return diceImage;
+        return imageOfDice;
     }
 
     public boolean getSelected() {

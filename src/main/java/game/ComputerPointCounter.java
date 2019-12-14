@@ -20,7 +20,7 @@ public class ComputerPointCounter {
     private HashMap<Score, Integer> computerResult = new HashMap<>();
     private ArrayList<Score> computerTemporarResult = new ArrayList<>();
 
-    private HashMap<Score, Integer> scoreMap() {
+    private void scoreMap() {
         computerResult.put(aces, 0);
         computerResult.put(twos, 0);
         computerResult.put(threes, 0);
@@ -35,11 +35,10 @@ public class ComputerPointCounter {
         computerResult.put(fiveDice, 0);
         computerResult.put(chance, 0);
         computerResult.put(bonusPoints, 0);
-        return computerResult;
     }
 
 
-    private ArrayList<Score> scoreTemporarMap() {
+    private void scoreTemporarMap() {
         computerTemporarResult.add(aces);
         computerTemporarResult.add(twos);
         computerTemporarResult.add(threes);
@@ -54,11 +53,10 @@ public class ComputerPointCounter {
         computerTemporarResult.add(fiveDice);
         computerTemporarResult.add(chance);
         computerTemporarResult.add(bonusPoints);
-        return computerTemporarResult;
     }
 
 
-    private HashMap<Score, Boolean> scorePossibilities() {
+    private void scorePossibilities() {
         computerPossibilities.put(aces, true);
         computerPossibilities.put(twos, true);
         computerPossibilities.put(threes, true);
@@ -73,7 +71,6 @@ public class ComputerPointCounter {
         computerPossibilities.put(fiveDice, true);
         computerPossibilities.put(chance, true);
         computerPossibilities.put(bonusPoints, true);
-        return computerPossibilities;
     }
 
     public HashMap<Score, Integer> getComputerResult() {
@@ -109,7 +106,7 @@ public class ComputerPointCounter {
         return random.nextInt(computerTemporarResult.size());
     }
 
-    public Score draw() {
+    private Score draw() {
         return computerTemporarResult.get(drawSize());
     }
 
@@ -170,11 +167,11 @@ public class ComputerPointCounter {
     }
 
 
-    public int randomDice() {
+    private int randomDice() {
         return random.nextInt(6) + 1;
     }
 
-    public int randomDiceAmount() {
+    private int randomDiceAmount() {
         return random.nextInt(5) + 1;
     }
 
@@ -268,51 +265,29 @@ public class ComputerPointCounter {
         return result.values().stream().mapToInt(Integer::intValue).sum();
     }
 
+    private void computerAces(Score score) {
+        if (!computerPossibilities.get(score)) {
+            computerTemporarResult.remove(score);
+        }
+
+    }
+
     public void computerPossibleTurn(User user) {
         if (!user.userTurn) {
-
-            if (!computerPossibilities.get(aces) && computerTemporarResult.contains(aces)) {
-                computerTemporarResult.remove(aces);
-            }
-            if (!computerPossibilities.get(twos) && computerTemporarResult.contains(twos)) {
-                computerTemporarResult.remove(twos);
-            }
-            if (!computerPossibilities.get(threes) && computerTemporarResult.contains(threes)) {
-                computerTemporarResult.remove(threes);
-            }
-            if (!computerPossibilities.get(fours) && computerTemporarResult.contains(fours)) {
-                computerTemporarResult.remove(fours);
-            }
-            if (!computerPossibilities.get(fives) && computerTemporarResult.contains(fives)) {
-                computerTemporarResult.remove(fives);
-            }
-            if (!computerPossibilities.get(sixes) && computerTemporarResult.contains(sixes)) {
-                computerTemporarResult.remove(sixes);
-            }
-            if (!computerPossibilities.get(threeOfaAKind) && computerTemporarResult.contains(threeOfaAKind)) {
-                computerTemporarResult.remove(threeOfaAKind);
-            }
-            if (!computerPossibilities.get(fourOfaAKind) && computerTemporarResult.contains(fourOfaAKind)) {
-                computerTemporarResult.remove(fourOfaAKind);
-            }
-            if (!computerPossibilities.get(fullHouse) && computerTemporarResult.contains(fullHouse)) {
-                computerTemporarResult.remove(fullHouse);
-            }
-            if (!computerPossibilities.get(smallStraight) && computerTemporarResult.contains(smallStraight)) {
-                computerTemporarResult.remove(smallStraight);
-            }
-            if (!computerPossibilities.get(largeStraight) && computerTemporarResult.contains(largeStraight)) {
-                computerTemporarResult.remove(largeStraight);
-            }
-            if (!computerPossibilities.get(fiveDice) && computerTemporarResult.contains(fiveDice)) {
-                computerTemporarResult.remove(fiveDice);
-            }
-            if (!computerPossibilities.get(chance) && computerTemporarResult.contains(chance)) {
-                computerTemporarResult.remove(chance);
-            }
-            if (!computerPossibilities.get(bonusPoints) && computerTemporarResult.contains(bonusPoints)) {
-                computerTemporarResult.remove(bonusPoints);
-            }
+            computerAces(aces);
+            computerAces(twos);
+            computerAces(threes);
+            computerAces(fours);
+            computerAces(fives);
+            computerAces(sixes);
+            computerAces(threeOfaAKind);
+            computerAces(fourOfaAKind);
+            computerAces(fullHouse);
+            computerAces(smallStraight);
+            computerAces(largeStraight);
+            computerAces(fiveDice);
+            computerAces(chance);
+            computerAces(bonusPoints);
         }
 
     }

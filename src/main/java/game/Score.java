@@ -1,9 +1,9 @@
 package game;
 
 public class Score {
-    String Score;
+    private String Score;
 
-    public Score(String score) {
+    Score(String score) {
         Score = score;
     }
 

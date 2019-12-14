@@ -234,6 +234,32 @@ public class TheDiceGame extends Application {
         userTotalScore.setText(String.valueOf(pointCounter.totalScore(pointCounter.getUserResult())));
     }
 
+    private void buttonAction(Button button, Integer index) {
+        if (!user.getDiceList().isEmpty()) {
+            if (throwsLeft > 0) {
+                if (!user.getDiceList().get(index).getSelected()) {
+                    user.selectDice(user.getDiceList().get(index));
+                    System.out.println(user.getDiceList().get(index));
+                    System.out.println("dices to rethrow " + user.getDicesToRethrow());
+                    button.getStyleClass().add("buttonSelected");
+                    System.out.println("dice list: " + user.getDiceList());
+                } else {
+                    button.getStyleClass().remove("buttonSelected");
+                    user.unSelectDice(user.getDiceList().get(index));
+                    user.afterUnselectingDice();
+                    System.out.println(user.getDiceList().get(index));
+                    System.out.println("dices to rethrow " + user.getDicesToRethrow());
+                    System.out.println("dice list: " + user.getDiceList());
+                }
+            } else {
+                statusLabel.setText("You can't select any dice (" + throwsLeft + " throws left). Please choose your score.");
+            }
+        } else {
+            statusLabel.setText("Please throw the dices first.");
+
+        }
+    }
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -397,149 +423,27 @@ public class TheDiceGame extends Application {
         Button selectDice1 = new Button();
         selectDice1.setText("dice1");
         selectDice1.getStyleClass().add("button1");
-        selectDice1.setOnAction((e) -> {
-
-            if (!user.getDiceList().isEmpty()) {
-                if (throwsLeft > 0) {
-                    if (!user.getDiceList().get(0).getSelected()) {
-                        user.selectDice(user.getDiceList().get(0));
-                        System.out.println(user.getDiceList().get(0));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        selectDice1.getStyleClass().add("buttonSelected");
-                        System.out.println("dice list: " + user.getDiceList());
-                    } else {
-                        selectDice1.getStyleClass().remove("buttonSelected");
-                        user.unSelectDice(user.getDiceList().get(0));
-                        user.afterUnselectingDice();
-                        System.out.println(user.getDiceList().get(0));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        System.out.println("dice list: " + user.getDiceList());
-                    }
-                } else {
-                    statusLabel.setText("You can't select any dice (" + throwsLeft + " throws left). Please choose your score.");
-                }
-            } else {
-                statusLabel.setText("Please throw the dices first.");
-
-            }
-        });
+        selectDice1.setOnAction((e) -> buttonAction(selectDice1, 0));
 
         Button selectDice2 = new Button();
         selectDice2.setText("dice2");
         selectDice2.getStyleClass().add("button1");
-        selectDice2.setOnAction((e) -> {
+        selectDice2.setOnAction((e) -> buttonAction(selectDice2, 1));
 
-            if (!user.getDiceList().isEmpty()) {
-                if (throwsLeft > 0) {
-                    if (!user.getDiceList().get(1).getSelected()) {
-                        user.selectDice(user.getDiceList().get(1));
-                        System.out.println(user.getDiceList().get(1));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        selectDice2.getStyleClass().add("buttonSelected");
-                        System.out.println("dice list: " + user.getDiceList());
-                    } else {
-                        selectDice2.getStyleClass().remove("buttonSelected");
-                        user.unSelectDice(user.getDiceList().get(1));
-                        user.afterUnselectingDice();
-                        System.out.println(user.getDiceList().get(1));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        System.out.println("dice list: " + user.getDiceList());
-                    }
-                } else {
-                    statusLabel.setText("You can't select any dice (" + throwsLeft + " throws left). Please choose your score.");
-                }
-            } else {
-                statusLabel.setText("Please throw the dices first.");
-
-            }
-        });
         Button selectDice3 = new Button();
         selectDice3.setText("dice3");
         selectDice3.getStyleClass().add("button1");
-        selectDice3.setOnAction((e) -> {
+        selectDice3.setOnAction((e) -> buttonAction(selectDice3, 2));
 
-            if (!user.getDiceList().isEmpty()) {
-                if (throwsLeft > 0) {
-                    if (!user.getDiceList().get(2).getSelected()) {
-                        user.selectDice(user.getDiceList().get(2));
-                        System.out.println(user.getDiceList().get(2));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        selectDice3.getStyleClass().add("buttonSelected");
-                        System.out.println("dice list: " + user.getDiceList());
-                    } else {
-                        selectDice3.getStyleClass().remove("buttonSelected");
-                        user.unSelectDice(user.getDiceList().get(2));
-                        user.afterUnselectingDice();
-                        System.out.println(user.getDiceList().get(2));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        System.out.println("dice list: " + user.getDiceList());
-                    }
-                } else {
-                    statusLabel.setText("You can't select any dice (" + throwsLeft + " throws left). Please choose your score.");
-                }
-            } else {
-                statusLabel.setText("Please throw the dices first.");
-
-            }
-        });
         Button selectDice4 = new Button();
         selectDice4.setText("dice4");
         selectDice4.getStyleClass().add("button1");
-        selectDice4.setOnAction((e) -> {
+        selectDice4.setOnAction((e) -> buttonAction(selectDice4, 3));
 
-            if (!user.getDiceList().isEmpty()) {
-                if (throwsLeft > 0) {
-                    if (!user.getDiceList().get(3).getSelected()) {
-                        user.selectDice(user.getDiceList().get(3));
-                        System.out.println(user.getDiceList().get(3));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        selectDice4.getStyleClass().add("buttonSelected");
-                        System.out.println("dice list: " + user.getDiceList());
-                    } else {
-                        selectDice4.getStyleClass().remove("buttonSelected");
-                        user.unSelectDice(user.getDiceList().get(3));
-                        user.afterUnselectingDice();
-                        System.out.println(user.getDiceList().get(3));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        System.out.println("dice list: " + user.getDiceList());
-                    }
-                } else {
-                    statusLabel.setText("You can't select any dice (" + throwsLeft + " throws left). Please choose your score.");
-                }
-            } else {
-                statusLabel.setText("Please throw the dices first.");
-
-            }
-        });
         Button selectDice5 = new Button();
         selectDice5.setText("dice5");
         selectDice5.getStyleClass().add("button1");
-        selectDice5.setOnAction((e) -> {
-
-            if (!user.getDiceList().isEmpty()) {
-                if (throwsLeft > 0) {
-                    if (!user.getDiceList().get(4).getSelected()) {
-                        user.selectDice(user.getDiceList().get(4));
-                        System.out.println(user.getDiceList().get(4));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        selectDice5.getStyleClass().add("buttonSelected");
-                        System.out.println("dice list: " + user.getDiceList());
-                    } else {
-                        selectDice5.getStyleClass().remove("buttonSelected");
-                        user.unSelectDice(user.getDiceList().get(4));
-                        user.afterUnselectingDice();
-                        System.out.println(user.getDiceList().get(4));
-                        System.out.println("dices to rethrow " + user.getDicesToRethrow());
-                        System.out.println("dice list: " + user.getDiceList());
-                    }
-                } else {
-                    statusLabel.setText("You can't select any dice (" + throwsLeft + " throws left). Please choose your score.");
-                }
-            } else {
-                statusLabel.setText("Please throw the dices first.");
-
-            }
-        });
+        selectDice5.setOnAction((e) -> buttonAction(selectDice5, 4));
 
         Button reThrow = new Button();
         reThrow.setText("RE-THROW (" + throwsLeft + ")");
